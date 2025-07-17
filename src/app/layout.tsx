@@ -1,33 +1,30 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const geistSans = Geist({
   subsets: ["latin"],
-  variable: "--font-geist-sans", // ✅ mantiene nombre por consistencia
+  weight: ["400", "700"],            // Regular y Bold
+  variable: "--font-geist-sans",
   display: "swap",
 });
 
-const jetbrains = JetBrains_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
+  weight: ["400"],                   // Mono regular solo
   variable: "--font-geist-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Hugo Hormazábal | IA Personalizada con Propósito",
-  description:
-    "Consultoría estratégica premium en inteligencia artificial con enfoque humano y resultados reales.",
+  description: "Consultoría estratégica premium en inteligencia artificial con enfoque humano y resultados reales.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${inter.variable} ${jetbrains.variable}`}>
+    <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body
         className="antialiased text-white"
         style={{

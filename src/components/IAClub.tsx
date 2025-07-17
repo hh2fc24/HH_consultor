@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, BookOpen, Video, MessageSquare, Zap, Calendar, LockKeyhole } from 'lucide-react';
-import type { Variants } from 'framer-motion';
+
 
 const IAClub = () => {
   const containerVariants = {
@@ -17,19 +17,19 @@ const IAClub = () => {
     },
   };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { 
-      type: "spring" as const, 
-      stiffness: 120, 
-      damping: 15, 
-      duration: 0.7 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        type: 'spring', 
+        stiffness: 120, 
+        damping: 15, 
+        duration: 0.7 
+      },
     },
-  },
-};
+  };
 
   const benefits = [
     {
