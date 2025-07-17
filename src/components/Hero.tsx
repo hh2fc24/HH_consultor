@@ -14,7 +14,7 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const fadeInUp = (delay) => ({
+  const fadeInUp = (delay: number) => ({
     opacity: isLoaded ? 1 : 0,
     transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
     transition: `all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)`,

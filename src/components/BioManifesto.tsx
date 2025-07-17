@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { ArrowRight, Linkedin, BookOpen, BarChart, Award, Briefcase } from 'lucide-react';
 import CompanyLogos from './CompanyLogos';
 
@@ -17,7 +17,7 @@ const BioManifesto = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

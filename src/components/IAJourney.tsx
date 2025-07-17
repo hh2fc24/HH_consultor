@@ -3,6 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { Sparkles, BrainCircuit, Rocket, Layers, BarChart } from 'lucide-react';
+import type { Variants } from 'framer-motion';
 
 const IAJourney = () => {
   const containerVariants = {
@@ -16,16 +17,16 @@ const IAJourney = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { 
-        type: 'spring', 
-        stiffness: 120, 
-        damping: 15, 
-        duration: 0.7 
+      transition: {
+        type: "spring", // ✅ usar literal exacto
+        stiffness: 120,
+        damping: 15,
+        duration: 0.7,
       },
     },
   };
