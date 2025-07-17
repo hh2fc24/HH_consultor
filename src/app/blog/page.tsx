@@ -1,3 +1,4 @@
+// src/app/blog/page.tsx
 // ❌ SIN 'use client'
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -12,16 +13,16 @@ export const metadata: Metadata = {
 const BlogPage = () => {
   const articles = [
     {
-      id: 1,
+      slug: 'article1', // ✅ ruta fija
       title: "Manus AI: La Revolución de los Agentes Autónomos",
       excerpt: "De preguntas y respuestas a un equipo de IA orquestado",
-      category: "IA ",
+      category: "IA",
       date: "15 Mayo 2024",
       readTime: "8 min",
       image: "/1b.png",
     },
     {
-      id: 2,
+      slug: 'article2',
       title: "El Futuro de la Experiencia del Cliente: IA Conversacional",
       excerpt: "Por qué los chatbots tradicionales están obsoletos y qué viene después",
       category: "Customer Experience",
@@ -30,14 +31,14 @@ const BlogPage = () => {
       image: "/2b.png",
     },
     {
-      id: 3,
+      slug: 'article3',
       title: "Democratizando IA: Estrategias para PyMEs",
       excerpt: "Cómo las pequeñas empresas pueden implementar soluciones de IA sin grandes inversiones",
       category: "Transformación Digital",
       date: "1 Junio 2024",
       readTime: "10 min",
       image: "/3b.png",
-    }
+    },
   ];
 
   return (
@@ -67,7 +68,7 @@ const BlogPage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {articles.map(article => (
-                <Link key={article.id} href={`/blog/${article.id}`} className="group">
+                <Link key={article.slug} href={`/blog/${article.slug}`} className="group">
                   <div className="h-full bg-gradient-to-b from-gray-900 to-black rounded-2xl border border-white/10 overflow-hidden transition-all duration-300 group-hover:border-cyan-500/50">
                     <div className="h-48 w-full relative">
                       <Image

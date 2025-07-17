@@ -1,20 +1,15 @@
-// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
-  subsets: ["latin"],
-  weight: ["400", "700"],            // Regular y Bold
   variable: "--font-geist-sans",
-  display: "swap",
+  subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  weight: ["400"],                   // Mono regular solo
   variable: "--font-geist-mono",
-  display: "swap",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -22,13 +17,17 @@ export const metadata: Metadata = {
   description: "Consultoría estratégica premium en inteligencia artificial con enfoque humano y resultados reales.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="es">
       <body
-        className="antialiased text-white"
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-white`}
         style={{
-          backgroundColor: "#171c39",
+          backgroundColor: "#171c39", // Color preciso del logo
           minHeight: "100vh",
           WebkitFontSmoothing: "antialiased",
           MozOsxFontSmoothing: "grayscale",

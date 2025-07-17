@@ -1,9 +1,8 @@
+// src/components/IAClub.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, BookOpen, Video, MessageSquare, Zap, Calendar, LockKeyhole } from 'lucide-react';
-
 
 const IAClub = () => {
   const containerVariants = {
@@ -23,7 +22,7 @@ const IAClub = () => {
       opacity: 1,
       y: 0,
       transition: { 
-        type: 'spring', 
+        type: 'spring'as const, 
         stiffness: 120, 
         damping: 15, 
         duration: 0.7 
@@ -63,38 +62,6 @@ const IAClub = () => {
       description: "Acceso prioritario a talleres y lanzamientos exclusivos"
     }
   ];
-
-  const testimonios = [
-    {
-      nombre: "Raquel Arevalo",
-      rol: "Cirujano Dentista",
-      mensaje:
-        "Gracias al Club entendí cómo aplicar la IA en mi consulta. En menos de 3 meses descubrí Atlas Copilot Dental y pasé de llenar fichas a mano a enfocarme 100% en mis pacientes. Hoy, mi tiempo rinde más, mis atenciones son mejores… y mi cabeza está tranquila.",
-    },
-    {
-      nombre: "Paula Guerra",
-      rol: "Agente Inmobiliaria - Century21",
-      mensaje:
-        "Atlas Copilot Inmobiliario me ayudó a organizar mis grupos de WhatsApp y contactos. Pero lo más importante: ¡me ayudó a vender más! Hoy puedo enfocarme en clientes reales y cerrar operaciones más rápido.",
-    },
-    {
-      nombre: "David Cantillana",
-      rol: "Subdirector de Admisión - UDLA",
-      mensaje:
-        "Gracias al Club y a la integración de IA, simplificamos el manejo de datos, automatizamos reportes y mejoramos el seguimiento de indicadores clave. Ahora los informes son claros, accionables y en tiempo real.",
-    },
-  ];
-
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % testimonios.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const { nombre, rol, mensaje } = testimonios[index];
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
@@ -239,18 +206,18 @@ const IAClub = () => {
             </div>
           </motion.div>
           
-          {/* Testimonio rotativo */}
+          {/* Testimonio */}
           <motion.div 
             variants={itemVariants}
             className="text-center"
           >
             <div className="max-w-3xl mx-auto p-8 bg-gradient-to-r from-cyan-900/20 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-white/10">
               <p className="text-xl italic text-white mb-6">
-                {`"${mensaje}"`}
+              "Gracias al Club entendí cómo aplicar la IA en mi consulta. En menos de 3 meses descubrí Atlas Copilot Dental y pasé de llenar fichas a mano a enfocarme 100% en mis pacientes. Hoy, mi tiempo rinde más, mis atenciones son mejores… y mi cabeza está tranquila.”
               </p>
               <div>
-                <div className="font-bold text-white">{nombre}</div>
-                <div className="text-gray-400">{rol}</div>
+                <div className="font-bold text-white">Raquel Arevalo</div>
+                <div className="text-gray-400">Cirujano Dentista</div>
               </div>
             </div>
           </motion.div>

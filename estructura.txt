@@ -1,0 +1,61 @@
+.
+├── eslint.config.mjs
+├── estructura.txt
+├── next-env.d.ts
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── 1.mp4
+│   ├── 111.mp4
+│   ├── 1b.png
+│   ├── 2.mp4
+│   ├── 22.mp4
+│   ├── 222.mp4
+│   ├── 2b.png
+│   ├── 3.mp4
+│   ├── 333.mp4
+│   ├── 3b.png
+│   ├── AL.svg
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── grid.svg
+│   ├── HHweb.svg
+│   ├── Logo_HH.svg
+│   ├── next.svg
+│   ├── T.png
+│   ├── vercel.svg
+│   └── window.svg
+├── README.md
+├── src
+│   ├── app
+│   │   ├── blog
+│   │   │   ├── [id]
+│   │   │   │   └── page.tsx
+│   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   └── components
+│       ├── BioManifesto.tsx
+│       ├── blog
+│       │   ├── Article1.tsx
+│       │   ├── Article2.tsx
+│       │   └── Article3.tsx
+│       ├── CompanyLogos.tsx
+│       ├── ConsultationCTA.tsx
+│       ├── Footer.tsx
+│       ├── Hero.tsx
+│       ├── IAClub.tsx
+│       ├── IAJourney.tsx
+│       ├── IAPowers.tsx
+│       ├── modals
+│       │   └── GuideModal.tsx
+│       ├── Navbar.tsx
+│       ├── ResultsShowcase.tsx
+│       └── WhyWorkWithMe.tsx
+└── tsconfig.json
+
+9 directories, 50 files
