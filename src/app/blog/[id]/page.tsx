@@ -15,7 +15,7 @@ interface PageProps {
   };
 }
 
-export default async function BlogArticlePage({ params }: PageProps) {
+export default function BlogArticlePage({ params }: PageProps) {
   const article = articleMap[params.id];
 
   if (!article) {
