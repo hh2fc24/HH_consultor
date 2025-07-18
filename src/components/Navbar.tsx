@@ -32,14 +32,14 @@ export default function Navbar() {
       description: 'Servicios y Metodología',
       color: 'purple',
       submenu: [
-        { label: 'Consultoría Estratégica', href: '#consultoria' },
-        { label: 'Implementación IA', href: '#implementacion' },
-        { label: 'Capacitación', href: '#capacitacion' }
+        { label: 'Método de Trabajo', href: '#servicios' },
+        { label: 'Sobre Hugo', href: '#sobre-hugo' },
+        { label: 'Superpoderes IA', href: '#superpoderes' }
       ]
     },
     {
       label: 'Experimenta',
-      href: '#casos',
+      href: '#casos-de-exito',
       description: 'Casos de Estudio',
       color: 'cyan'
     },
@@ -127,7 +127,7 @@ export default function Navbar() {
 
           {/* Navegación principal - Desktop */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationItems.map((item, index) => (
+            {navigationItems.map((item,) => (
               <div 
                 key={item.label}
                 className="relative group"

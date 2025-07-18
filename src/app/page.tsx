@@ -7,23 +7,28 @@ import IAClub from '@/components/IAClub';
 import IAPowers from '@/components/IAPowers';
 import ResultsShowcase from '@/components/ResultsShowcase';
 import ConsultationCTA from '@/components/ConsultationCTA';
+import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 
 export default function HomePage() {
   return (
     <main className="relative w-full bg-black">
       <Navbar />
-      <Hero />
       
-      {/* 1. Descubre (¿Por qué IA?) - Ya cubierto por Hero */}
-
+      {/* 1. Descubre (¿Por qué IA?) */}
+      <section id="descubre">
+        <Hero />
+      </section>
+      
       {/* 2. Explora (Servicios y Metodología) */}
       <section id="servicios">
         <WhyWorkWithMe />
       </section>
 
       {/* BioManifesto también encaja aquí para establecer credibilidad y propósito */}
-      <BioManifesto />
+      <section id="sobre-hugo">
+        <BioManifesto />
+      </section>
 
       {/* 3. Experimenta (Casos de Estudio y Herramientas) */}
       <section id="superpoderes">
@@ -31,7 +36,9 @@ export default function HomePage() {
       </section>
 
       {/* Resultados y testimonios para reforzar la experiencia */}
-      <ResultsShowcase />
+      <section id="casos-de-exito">
+        <ResultsShowcase />
+      </section>
 
       {/* 4. Evoluciona (Proceso de Trabajo) */}
       <section id="proceso">
@@ -39,7 +46,14 @@ export default function HomePage() {
       </section>
 
       {/* IAClub como una extensión del camino de evolución y comunidad */}
-      <IAClub />
+      <section id="comunidad">
+        <IAClub />
+      </section>
+
+      {/* FAQ para resolver dudas comunes */}
+      <section id="faq">
+        <FAQ />
+      </section>
 
       {/* 5. Empieza (Contacto y Onboarding) */}
       <section id="contacto">
