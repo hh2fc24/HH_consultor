@@ -5,12 +5,21 @@ import { BarChart, Zap, Clock, TrendingUp, Award, Users, DollarSign, Target } fr
 import { useState, useEffect } from 'react';
 
 const ResultsShowcase = () => {
+  // Estado para el contador animado
   const [animatedValues, setAnimatedValues] = useState({
     cost: 0,
     analysis: 0,
     time: 0,
     cx: 0
   });
+
+  // 1. ESTADO PARA CONTROLAR SI EL COMPONENTE ESTÁ MONTADO EN EL CLIENTE
+  const [isMounted, setIsMounted] = useState(false);
+
+  // 2. EFECTO QUE SE EJECUTA SOLO EN EL CLIENTE PARA ACTUALIZAR EL ESTADO
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const finalResults = [
     {
@@ -57,7 +66,7 @@ const ResultsShowcase = () => {
 
   // Animación de contadores
   useEffect(() => {
-    const duration = 2000; // 2 segundos
+    const duration = 2000;
     const steps = 60;
     const stepDuration = duration / steps;
 
@@ -74,6 +83,7 @@ const ResultsShowcase = () => {
       });
 
       if (currentStep >= steps) {
+        setAnimatedValues({ cost: 45, analysis: 20, time: 30, cx: 67 });
         clearInterval(timer);
       }
     }, stepDuration);
@@ -87,8 +97,8 @@ const ResultsShowcase = () => {
       author: "Equipo Directivo Retail Financiero",
       company: "Cencosud Scotiabank",
       metrics: {
-        savings: "$20k/mes",
-        implementation: "3 meses",
+        ahorro: "$20k/mes",
+        implementación: "3 meses",
         roi: "300%"
       }
     },
@@ -97,9 +107,9 @@ const ResultsShowcase = () => {
       author: "Director de Operaciones",
       company: "Tenpo",
       metrics: {
-        productivity: "+40%",
-        efficiency: "+60%",
-        satisfaction: "95%"
+        productividad: "+40%",
+        eficiencia: "+60%",
+        satisfacción: "95%"
       }
     }
   ];
@@ -112,10 +122,10 @@ const ResultsShowcase = () => {
     }, 5000);
 
     return () => clearInterval(testimonialTimer);
-  }, []);
+  }, [testimonials.length]);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden">
+    <section id="casos-de-exito" className="py-20 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden">
       {/* Background inteligente */}
       <div className="absolute inset-0 z-0 opacity-15">
         <div className="absolute top-1/4 left-20 w-64 h-64 rounded-full bg-cyan-500/20 blur-3xl animate-pulse"></div>
@@ -124,7 +134,8 @@ const ResultsShowcase = () => {
         
         {/* Partículas de datos */}
         <div className="absolute inset-0">
-          {[...Array(15)].map((_, i) => (
+          {/* 3. RENDERIZADO CONDICIONAL DE LAS PARTÍCULAS */}
+          {isMounted && [...Array(15)].map((_, i) => (
             <div
               key={i}
               className="absolute w-2 h-2 bg-cyan-400/20 rounded-full animate-float"
@@ -177,17 +188,11 @@ const ResultsShowcase = () => {
               className="group relative"
             >
               <div className={`bg-gradient-to-br from-gray-800/60 to-gray-900/30 backdrop-blur-sm rounded-2xl border border-white/10 p-6 text-center relative overflow-hidden transition-all duration-300 hover:border-${result.color}-400/50`}>
-                
-                {/* Efecto de brillo en hover */}
                 <div className={`absolute inset-0 bg-gradient-to-r from-${result.color}-500/0 via-${result.color}-500/5 to-${result.color}-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                
-                {/* Icono con animación */}
                 <div className="relative z-10">
                   <div className="w-16 h-16 mx-auto rounded-full bg-black/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     {result.icon}
                   </div>
-                  
-                  {/* Valor animado */}
                   <div className={`text-3xl md:text-4xl font-bold text-${result.color}-400 mb-2 transition-all duration-300 group-hover:scale-110`}>
                     {result.prefix}
                     {index === 0 ? animatedValues.cost :
@@ -196,7 +201,6 @@ const ResultsShowcase = () => {
                      animatedValues.cx}
                     {result.suffix}
                   </div>
-                  
                   <h3 className="text-lg md:text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
                     {result.label}
                   </h3>
@@ -204,8 +208,6 @@ const ResultsShowcase = () => {
                     {result.description}
                   </p>
                 </div>
-
-                {/* Barra de progreso sutil */}
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-700 overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
@@ -229,8 +231,6 @@ const ResultsShowcase = () => {
           className="max-w-5xl mx-auto mb-16"
         >
           <div className="bg-gradient-to-r from-cyan-900/20 via-purple-900/20 to-blue-900/20 backdrop-blur-sm rounded-2xl border border-cyan-500/20 p-8 relative overflow-hidden">
-            
-            {/* Indicador de testimonio activo */}
             <div className="flex justify-center gap-2 mb-6">
               {testimonials.map((_, index) => (
                 <button
@@ -241,26 +241,25 @@ const ResultsShowcase = () => {
                       ? 'bg-cyan-400 scale-125' 
                       : 'bg-gray-600 hover:bg-gray-500'
                   }`}
+                  aria-label={`Ver testimonio ${index + 1}`}
                 />
               ))}
             </div>
-
             <motion.div
               key={currentTestimonial}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
               className="text-center"
             >
               <div className="flex flex-col lg:flex-row items-center gap-8">
                 <div className="flex-1">
                   <p className="text-lg md:text-xl italic text-white mb-6 leading-relaxed">
-                    "{testimonials[currentTestimonial].quote}"
+                    “{testimonials[currentTestimonial].quote}”
                   </p>
-                  
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                    <div className="text-left lg:text-left">
+                    <div className="text-center lg:text-left">
                       <div className="font-bold text-white text-lg">
                         {testimonials[currentTestimonial].author}
                       </div>
@@ -268,12 +267,10 @@ const ResultsShowcase = () => {
                         {testimonials[currentTestimonial].company}
                       </div>
                     </div>
-                    
-                    {/* Métricas del testimonio */}
                     <div className="flex gap-4 justify-center lg:justify-end">
                       {Object.entries(testimonials[currentTestimonial].metrics).map(([key, value]) => (
-                        <div key={key} className="text-center">
-                          <div className="text-xl font-bold text-purple-400">{value}</div>
+                        <div key={key} className="text-center p-2 bg-black/20 rounded-lg">
+                          <div className="text-xl font-bold text-purple-400">{value as React.ReactNode}</div>
                           <div className="text-xs text-gray-400 capitalize">{key}</div>
                         </div>
                       ))}
@@ -299,13 +296,11 @@ const ResultsShowcase = () => {
               <div className="text-2xl font-bold text-white mb-2">50+</div>
               <div className="text-gray-400 text-sm">Empresas transformadas</div>
             </div>
-            
             <div className="p-6 bg-gradient-to-br from-gray-800/30 to-gray-900/20 rounded-xl border border-white/10">
               <DollarSign className="w-8 h-8 text-purple-400 mx-auto mb-3" />
               <div className="text-2xl font-bold text-white mb-2">$2M+</div>
               <div className="text-gray-400 text-sm">Ahorros generados</div>
             </div>
-            
             <div className="p-6 bg-gradient-to-br from-gray-800/30 to-gray-900/20 rounded-xl border border-white/10">
               <Target className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
               <div className="text-2xl font-bold text-white mb-2">98%</div>
@@ -332,4 +327,3 @@ const ResultsShowcase = () => {
 };
 
 export default ResultsShowcase;
-

@@ -245,7 +245,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Botones mejorados con nueva paleta */}
+        {/* --- CAMBIO AQUÍ --- Botones convertidos a enlaces <a> */}
         <div style={{
           ...fadeInUp(0.5),
           display: 'flex',
@@ -253,7 +253,11 @@ const HeroSection = () => {
           justifyContent: 'center',
           flexWrap: 'wrap',
         }}>
-          <button 
+          {/* Botón de WhatsApp */}
+          <a 
+            href="https://wa.me/59177028880"
+            target="_blank" // Abre en una nueva pestaña
+            rel="noopener noreferrer"
             onMouseEnter={() => setIsPrimaryHovered(true)}
             onMouseLeave={() => setIsPrimaryHovered(false)}
             style={{
@@ -274,12 +278,15 @@ const HeroSection = () => {
                 : '0 6px 20px rgba(0, 212, 255, 0.25)',
               letterSpacing: '-0.01em',
               fontFamily: 'Inter, sans-serif',
+              textDecoration: 'none', // Quita el subrayado del enlace
             }}
           >
             Iniciar Conversación
-          </button>
+          </a>
           
-          <button 
+          {/* Botón a la sección Casos de Éxito */}
+          <a
+            href="#casos-de-exito" // Enlace de ancla
             onMouseEnter={() => setIsSecondaryHovered(true)}
             onMouseLeave={() => setIsSecondaryHovered(false)}
             style={{
@@ -298,10 +305,11 @@ const HeroSection = () => {
               borderColor: isSecondaryHovered ? 'rgba(0,212,255,0.8)' : 'rgba(0,212,255,0.4)',
               letterSpacing: '-0.01em',
               fontFamily: 'Inter, sans-serif',
+              textDecoration: 'none', // Quita el subrayado del enlace
             }}
           >
             Ver Casos de Éxito
-          </button>
+          </a>
         </div>
 
         {/* Estadísticas mejoradas */}
@@ -344,6 +352,9 @@ const HeroSection = () => {
 
       {/* Estilos CSS para animaciones */}
       <style jsx>{`
+        html {
+          scroll-behavior: smooth; /* Para que el scroll sea suave */
+        }
         @keyframes blink {
           0%, 50% { opacity: 1; }
           51%, 100% { opacity: 0; }
@@ -360,4 +371,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-

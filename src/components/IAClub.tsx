@@ -226,7 +226,7 @@ const IAClub = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent animate-scan-light"></div>
               
               <p className="text-lg md:text-xl italic text-white mb-6 leading-relaxed">
-              "Gracias al Club entendí cómo aplicar la IA en mi consulta. En menos de 3 meses descubrí Atlas Copilot Dental y pasé de llenar fichas a mano a enfocarme 100% en mis pacientes. Hoy, mi tiempo rinde más, mis atenciones son mejores… y mi cabeza está tranquila.”
+              Gracias al Club entendí cómo aplicar la IA en mi consulta. En menos de 3 meses descubrí Atlas Copilot Dental y pasé de llenar fichas a mano a enfocarme 100% en mis pacientes. Hoy, mi tiempo rinde más, mis atenciones son mejores… y mi cabeza está tranquila.
               </p>
               <div>
                 <div className="font-bold text-white text-lg">Raquel Arevalo</div>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -15,6 +16,7 @@ interface MethodStep {
   hoverIcon: LucideIcon;
 }
 
+// =====> NOMBRE CORREGIDO AQUÍ <=====
 const WorldClassMethod: React.FC = () => {
   const methodology: MethodStep[] = [
     {
@@ -92,7 +94,6 @@ const WorldClassMethod: React.FC = () => {
           variants={containerVariants}
           className="text-center mb-20"
         >
-          {/* Título mejorado con nueva paleta */}
           <motion.h1 
             variants={itemVariants}
             className="text-3xl md:text-4xl font-semibold leading-tight text-gray-100 tracking-tight mb-4"
@@ -100,7 +101,6 @@ const WorldClassMethod: React.FC = () => {
             El Método: <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-yellow-400 bg-clip-text text-transparent font-bold">Claridad, Impacto y Humanidad</span>
           </motion.h1>
           
-          {/* Subtítulo con efecto scan light */}
           <motion.p 
             variants={itemVariants}
             className="text-base md:text-lg text-zinc-400 leading-relaxed max-w-2xl mx-auto relative"
@@ -110,7 +110,6 @@ const WorldClassMethod: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        {/* Testimonio más compacto y elegante */}
         <motion.div
           variants={itemVariants}
           className="mb-20 max-w-4xl mx-auto"
@@ -142,7 +141,6 @@ const WorldClassMethod: React.FC = () => {
           </div>
         </motion.div>
         
-        {/* Tarjetas AI-powered mejoradas */}
         <motion.div
           variants={containerVariants}
           className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16"
@@ -163,17 +161,14 @@ const WorldClassMethod: React.FC = () => {
               >
                 <div className={`relative h-full p-6 rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900/80 to-black/50 transition-all duration-500 ${step.borderColor} backdrop-blur-sm`}>
                   
-                  {/* Efecto de brillo en hover */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/0 via-purple-500/0 to-blue-500/0 group-hover:from-cyan-500/5 group-hover:via-purple-500/5 group-hover:to-blue-500/5 transition-all duration-500"></div>
                   
-                  {/* Icono con transición */}
                   <div className="relative mb-6 flex items-center justify-between">
                     <div className="relative">
                       <IconComponent className="w-8 h-8 text-white/60 group-hover:text-white transition-all duration-300 group-hover:scale-110" />
                       <HoverIconComponent className="w-8 h-8 text-cyan-400 absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:rotate-12" />
                     </div>
                     
-                    {/* Métricas dinámicas */}
                     <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-4 group-hover:translate-x-0">
                       <div className="flex flex-col gap-1">
                         {step.metrics.map((metric, idx) => (
@@ -190,7 +185,6 @@ const WorldClassMethod: React.FC = () => {
                       {step.step}
                     </p>
                     
-                    {/* Título con gradiente de marca */}
                     <h4 className={`text-lg md:text-xl font-semibold leading-tight bg-gradient-to-r ${step.gradient} bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300`}>
                       {step.title}
                     </h4>
@@ -200,7 +194,6 @@ const WorldClassMethod: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Indicador de progreso */}
                   <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
               </motion.div>
@@ -208,33 +201,38 @@ const WorldClassMethod: React.FC = () => {
           })}
         </motion.div>
 
-        {/* CTA mejorado */}
         <motion.div
-          variants={itemVariants}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="text-center"
         >
-          <div className="inline-flex items-center gap-4 bg-gradient-to-r from-cyan-900/20 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-cyan-500/20 p-8">
+          <div className="inline-flex items-center gap-4 bg-gradient-to-r from-cyan-900/20 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-cyan-500/20 p-6 md:p-8">
             <div className="text-left">
-              <h3 className="text-xl font-bold text-white mb-2">
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
                 ¿Listo para implementar este método en tu empresa?
               </h3>
-              <p className="text-gray-400">
+              <p className="text-gray-400 text-sm md:text-base">
                 Agenda una consulta estratégica y descubre cómo aplicar estas fases a tu negocio específico.
               </p>
             </div>
-            <motion.button
+            
+            <motion.a
+              href="https://wa.me/59177028880"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-xl text-white font-semibold flex items-center gap-2 whitespace-nowrap"
+              className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 rounded-xl text-white font-semibold flex items-center gap-2 whitespace-nowrap shadow-lg shadow-cyan-500/20 transition-all"
             >
               Iniciar Transformación
               <Sparkles className="w-4 h-4" />
-            </motion.button>
+            </motion.a>
           </div>
         </motion.div>
       </div>
 
-      {/* Estilos CSS para animaciones */}
       <style jsx>{`
         @keyframes scan-light {
           0% { transform: translateX(-100%); }
@@ -249,5 +247,5 @@ const WorldClassMethod: React.FC = () => {
   );
 };
 
+// =====> NOMBRE CORREGIDO AQUÍ <=====
 export default WorldClassMethod;
-

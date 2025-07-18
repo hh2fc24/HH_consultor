@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Sparkles, BrainCircuit, Rocket, Layers, BarChart, Lightbulb, GraduationCap, Users, TrendingUp } from 'lucide-react';
+import { Sparkles, Rocket, Layers, Lightbulb, GraduationCap, TrendingUp } from 'lucide-react';
 
 
 const IAJourney = () => {

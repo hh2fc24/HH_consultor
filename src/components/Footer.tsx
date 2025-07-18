@@ -1,14 +1,21 @@
+
 'use client';
 
 import Link from 'next/link';
 import { Linkedin, Twitter, Youtube, Mail, Phone, MapPin, Award, Users, Clock, ArrowRight, Sparkles, TrendingUp, Zap, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
-import { FormEvent } from 'react';
-import { useEffect } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 
 const Footer = () => {
   const [emailInput, setEmailInput] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
+  
+  // =====> 1. AÑADE EL ESTADO PARA CONTROLAR EL MONTAJE <=====
+  const [isMounted, setIsMounted] = useState(false);
+
+  // =====> 2. USA useEffect PARA CAMBIAR EL ESTADO SOLO EN EL CLIENTE <=====
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubscribe = (e: FormEvent) => {
     e.preventDefault();
@@ -42,7 +49,7 @@ const Footer = () => {
       setCurrentInsight(prev => (prev + 1) % insights.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [insights.length]); // Añadido insights.length como dependencia
 
   return (
     <footer className="relative bg-gradient-to-b from-gray-900 via-black to-gray-900 border-t border-cyan-500/20 overflow-hidden">
@@ -54,7 +61,8 @@ const Footer = () => {
         
         {/* Partículas de conexión */}
         <div className="absolute inset-0">
-          {[...Array(12)].map((_, i) => (
+          {/* =====> 3. RENDERIZA LAS PARTÍCULAS SOLO SI EL COMPONENTE ESTÁ MONTADO <===== */}
+          {isMounted && [...Array(12)].map((_, i) => (
             <div
               key={i}
               className="absolute w-1 h-1 bg-cyan-400/40 rounded-full animate-pulse"
@@ -253,22 +261,27 @@ const Footer = () => {
                   </div>
                 </div>
                 
-                <div className="group flex items-center gap-3 hover:bg-white/5 p-3 rounded-lg transition-all duration-300">
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500/20 to-purple-500/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Phone className="w-5 h-5 text-purple-400" />
+                <a
+                  href="https://wa.me/569XXXXXXXX?text=Hola%20Hugo%2C%20quiero%20asesoría%20en%20IA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 hover:bg-white/5 p-3 rounded-lg transition-all duration-300"
+                >
+                  <div className="w-10 h-10 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Phone className="w-5 h-5 text-green-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">+56 9 XXXX XXXX</p>
-                    <p className="text-gray-400 text-sm">WhatsApp disponible</p>
+                    <p className="text-white font-medium">Hablemos por WhatsApp</p>
+                    <p className="text-gray-400 text-sm">Respuesta en 24h</p>
                   </div>
-                </div>
+                </a>
                 
                 <div className="group flex items-center gap-3 hover:bg-white/5 p-3 rounded-lg transition-all duration-300">
                   <div className="w-10 h-10 bg-gradient-to-br from-yellow-500/20 to-yellow-500/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                     <MapPin className="w-5 h-5 text-yellow-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Santiago, Chile</p>
+                    <p className="text-white font-medium">Santiago, Chile - Santa cruz de la sierra, Bolivia</p>
                     <p className="text-gray-400 text-sm">Consultoría global</p>
                   </div>
                 </div>
@@ -368,4 +381,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
