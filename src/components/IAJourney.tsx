@@ -105,7 +105,7 @@ const IAJourney = () => {
               <span className="text-yellow-400 font-semibold">Tu Evolución con IA</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Tu Camino con <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-yellow-400 bg-clip-text text-transparent">Inteligencia Artificial</span>
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-yellow-400 bg-clip-text text-transparent">Tu Futuro Ahora:</span> Domina la IA
             </h2>
             
             <div className="max-w-3xl mx-auto">
@@ -134,11 +134,36 @@ const IAJourney = () => {
               <motion.div 
                 key={index}
                 variants={itemVariants}
-                whileHover={{ scale: 1.02, boxShadow: '0 8px 20px rgba(0, 212, 255, 0.15)' }}
+                whileHover={{ 
+                  scale: 1.02, 
+                  y: -5,
+                  boxShadow: '0 20px 40px rgba(0, 212, 255, 0.2)',
+                  transition: { duration: 0.3 }
+                }}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                whileInView={{ 
+                  opacity: 1, 
+                  scale: 1, 
+                  y: 0,
+                  transition: { 
+                    duration: 0.6, 
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15
+                  }
+                }}
+                viewport={{ once: true }}
                 className="h-full flex flex-col group"
               >
-                <div className={`p-6 bg-gradient-to-br ${path.color} rounded-xl border border-white/10 flex-1 flex flex-col transition-all duration-300 group-hover:border-cyan-400/50`}>
-                  <div className="flex items-start gap-4 mb-5">
+                <div className={`p-6 bg-gradient-to-br ${path.color} rounded-xl border border-white/10 flex-1 flex flex-col transition-all duration-300 group-hover:border-cyan-400/50 relative overflow-hidden`}>
+                  {/* Efecto "forged in stone" */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
+                    <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-black/30 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0"></div>
+                  </div>
+                  <div className="relative z-10 flex items-start gap-4 mb-5">
                     <div className="w-12 h-12 rounded-lg bg-black/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       {path.icon}
                     </div>
@@ -149,7 +174,7 @@ const IAJourney = () => {
                     </div>
                   </div>
                   
-                  <div className="flex-1 space-y-4">
+                  <div className="relative z-10 flex-1 space-y-4">
                     <div>
                       <div className="text-xs font-semibold text-cyan-300 uppercase mb-1">Insight</div>
                       <p className="text-gray-300 italic text-sm">{path.insight}</p>
@@ -184,7 +209,7 @@ const IAJourney = () => {
               <Rocket className="w-12 h-12 text-cyan-400 mx-auto mb-6 animate-bounce" />
               
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
-                El Primer Paso Es Siempre El Más Importante
+                <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Desbloquea tu Potencial:</span> El Primer Paso Es Tuyo
               </h3>
               
               <div className="p-6 bg-gradient-to-r from-cyan-900/30 to-purple-900/30 backdrop-blur-sm rounded-xl border border-cyan-500/20">
@@ -197,12 +222,15 @@ const IAJourney = () => {
               </div>
               
               <div className="mt-8">
-                <motion.button
+                <motion.a
+                  href="https://wa.me/59177028880"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.03, boxShadow: '0 8px 20px rgba(0, 212, 255, 0.25)' }}
-                  className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-xl text-white font-semibold text-lg shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
+                  className="inline-block px-8 py-4 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-xl text-white font-semibold text-lg shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 no-underline"
                 >
-                  Explorar Rutas Disponibles
-                </motion.button>
+                  Comenzar Mi Transformación
+                </motion.a>
               </div>
             </div>
           </motion.div>

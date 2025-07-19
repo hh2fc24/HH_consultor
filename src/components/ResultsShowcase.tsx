@@ -172,7 +172,7 @@ const ResultsShowcase = () => {
           </p>
         </motion.div>
         
-        {/* Métricas principales con animación */}
+        {/* Métricas principales con visualización mejorada */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {finalResults.map((result, index) => (
             <motion.div
@@ -183,24 +183,67 @@ const ResultsShowcase = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ 
                 scale: 1.05,
+                y: -5,
                 transition: { duration: 0.2 }
               }}
               className="group relative"
             >
-              <div className={`bg-gradient-to-br from-gray-800/60 to-gray-900/30 backdrop-blur-sm rounded-2xl border border-white/10 p-6 text-center relative overflow-hidden transition-all duration-300 hover:border-${result.color}-400/50`}>
+              <div className={`bg-gradient-to-br from-gray-800/60 to-gray-900/30 backdrop-blur-sm rounded-2xl border border-white/10 p-6 text-center relative overflow-hidden transition-all duration-300 hover:border-${result.color}-400/50 hover:shadow-2xl hover:shadow-${result.color}-500/20`}>
+                {/* Efecto "forged in stone" */}
                 <div className={`absolute inset-0 bg-gradient-to-r from-${result.color}-500/0 via-${result.color}-500/5 to-${result.color}-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
+                  <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-black/30 to-transparent"></div>
+                </div>
+                
                 <div className="relative z-10">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-black/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-black/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 group-hover:shadow-lg">
                     {result.icon}
                   </div>
-                  <div className={`text-3xl md:text-4xl font-bold text-${result.color}-400 mb-2 transition-all duration-300 group-hover:scale-110`}>
-                    {result.prefix}
-                    {index === 0 ? animatedValues.cost :
-                     index === 1 ? animatedValues.analysis :
-                     index === 2 ? animatedValues.time :
-                     animatedValues.cx}
-                    {result.suffix}
+                  
+                  {/* Visualización de progreso circular */}
+                  <div className="relative w-24 h-24 mx-auto mb-4">
+                    <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        stroke="currentColor"
+                        strokeWidth="8"
+                        fill="none"
+                        className="text-gray-700"
+                      />
+                      <motion.circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        stroke={`var(--${result.color}-400)`}
+                        strokeWidth="8"
+                        fill="none"
+                        strokeLinecap="round"
+                        initial={{ pathLength: 0 }}
+                        whileInView={{ pathLength: result.finalValue / 100 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 2, delay: index * 0.2 }}
+                        className={`text-${result.color}-400`}
+                        style={{
+                          strokeDasharray: "251.2",
+                          strokeDashoffset: "251.2",
+                        }}
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className={`text-2xl font-bold text-${result.color}-400 transition-all duration-300 group-hover:scale-110`}>
+                        {result.prefix}
+                        {index === 0 ? animatedValues.cost :
+                         index === 1 ? animatedValues.analysis :
+                         index === 2 ? animatedValues.time :
+                         animatedValues.cx}
+                        {result.suffix}
+                      </div>
+                    </div>
                   </div>
+                  
                   <h3 className="text-lg md:text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
                     {result.label}
                   </h3>
@@ -208,6 +251,8 @@ const ResultsShowcase = () => {
                     {result.description}
                   </p>
                 </div>
+                
+                {/* Barra de progreso inferior */}
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-700 overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
@@ -221,6 +266,118 @@ const ResultsShowcase = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Casos de éxito con carrusel interactivo */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="max-w-6xl mx-auto mb-16"
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              Casos de <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Éxito Destacados</span>
+            </h3>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Descubre cómo nuestras soluciones de IA han transformado empresas reales
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Atlas IA para Inmobiliarias */}
+            <motion.div
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="bg-gradient-to-br from-cyan-900/30 to-blue-900/20 backdrop-blur-sm rounded-2xl border border-cyan-500/20 p-6 relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                    <BarChart className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white">Atlas IA para Inmobiliarias</h4>
+                    <p className="text-cyan-400 text-sm">Automatización Inteligente</p>
+                  </div>
+                </div>
+                
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  Tu asistente inmobiliario que automatiza fichas de propiedades mientras atiendes clientes. 
+                  Integración completa con CRM y análisis de mercado en tiempo real.
+                </p>
+                
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="text-center p-3 bg-black/20 rounded-lg">
+                    <div className="text-2xl font-bold text-cyan-400">+40%</div>
+                    <div className="text-xs text-gray-400">Eficiencia</div>
+                  </div>
+                  <div className="text-center p-3 bg-black/20 rounded-lg">
+                    <div className="text-2xl font-bold text-cyan-400">300%</div>
+                    <div className="text-xs text-gray-400">ROI</div>
+                  </div>
+                  <div className="text-center p-3 bg-black/20 rounded-lg">
+                    <div className="text-2xl font-bold text-cyan-400">2h/día</div>
+                    <div className="text-xs text-gray-400">Ahorradas</div>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs">Automatización de fichas</span>
+                  <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs">Análisis de mercado</span>
+                  <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs">CRM integrado</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Asistente Dental IA */}
+            <motion.div
+              whileHover={{ scale: 1.02, y: -5 }}
+              transition={{ duration: 0.3 }}
+              className="bg-gradient-to-br from-purple-900/30 to-pink-900/20 backdrop-blur-sm rounded-2xl border border-purple-500/20 p-6 relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                    <Zap className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-white">Asistente Dental IA</h4>
+                    <p className="text-purple-400 text-sm">Salud Digital</p>
+                  </div>
+                </div>
+                
+                <p className="text-gray-300 mb-6 leading-relaxed">
+                  Crea fichas clínicas automáticamente mientras examinas pacientes. 
+                  Diagnóstico asistido y seguimiento inteligente de tratamientos.
+                </p>
+                
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="text-center p-3 bg-black/20 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-400">+60%</div>
+                    <div className="text-xs text-gray-400">Eficiencia</div>
+                  </div>
+                  <div className="text-center p-3 bg-black/20 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-400">250%</div>
+                    <div className="text-xs text-gray-400">ROI</div>
+                  </div>
+                  <div className="text-center p-3 bg-black/20 rounded-lg">
+                    <div className="text-2xl font-bold text-purple-400">10h/sem</div>
+                    <div className="text-xs text-gray-400">Ahorradas</div>
+                  </div>
+                </div>
+                
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs">Fichas automáticas</span>
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs">Diagnóstico asistido</span>
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs">Seguimiento pacientes</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
 
         {/* Testimonios rotativos mejorados */}
         <motion.div

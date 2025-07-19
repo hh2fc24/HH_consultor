@@ -136,9 +136,20 @@ const BioManifesto = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Democratizando la <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-yellow-400 bg-clip-text text-transparent">Inteligencia Artificial</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-6">
               Transformando complejidad tecnológica en ventaja estratégica para líderes visionarios
             </p>
+            
+            {/* Conexión con automatización */}
+            <div className="max-w-4xl mx-auto">
+              <div className="p-6 bg-gradient-to-r from-cyan-900/20 via-purple-900/20 to-yellow-900/20 backdrop-blur-sm rounded-xl border border-cyan-500/20">
+                <p className="text-lg text-white leading-relaxed text-center">
+                  <span className="text-cyan-400 font-semibold">Mi IA no es solo código, es tu aliado humano</span> para automatizar el éxito. 
+                  Combino inteligencia artificial con automatización inteligente para crear soluciones que trabajan 24/7, 
+                  <span className="text-purple-400 font-medium"> mientras tú te enfocas en lo que realmente importa.</span>
+                </p>
+              </div>
+            </div>
           </motion.div>
           
           {/* Perfil de experto con timeline interactivo */}

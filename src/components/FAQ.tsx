@@ -82,7 +82,7 @@ const FAQ = () => {
             </div>
             
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Resolviendo tus <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-yellow-400 bg-clip-text text-transparent">Dudas</span>
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-yellow-400 bg-clip-text text-transparent">Respuestas Claras</span> para Decisiones Inteligentes
             </h2>
             <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
               Las respuestas a las preguntas más comunes sobre trabajar conmigo y implementar IA en tu negocio
@@ -111,15 +111,32 @@ const FAQ = () => {
             {filteredFaqs.map((faq, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-gradient-to-br from-gray-800/30 to-gray-900/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden"
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                whileHover={{ 
+                  scale: 1.02, 
+                  y: -2,
+                  transition: { duration: 0.2 }
+                }}
+                className="bg-gradient-to-br from-gray-800/30 to-gray-900/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden relative group"
               >
+                {/* Efecto "forged in stone" */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
+                  <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-black/30 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0"></div>
+                </div>
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors duration-300"
+                  className="relative z-10 w-full p-6 text-left flex items-center justify-between hover:bg-white/5 transition-colors duration-300"
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0">
