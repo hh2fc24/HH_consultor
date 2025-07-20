@@ -1,0 +1,276 @@
+/* Estilos adicionales para AutomationShowcase mejorado */
+
+.cardHover {
+  position: relative;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+.cardHover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg at var(--mouse-x) var(--mouse-y),
+    rgba(0, 229, 255, 0.8),
+    rgba(99, 102, 241, 0.8),
+    rgba(168, 85, 247, 0.8),
+    rgba(0, 229, 255, 0.8)
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cardHover:hover::before {
+  opacity: 1;
+  animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+  0% {
+    background: conic-gradient(
+      from 0deg at var(--mouse-x) var(--mouse-y),
+      rgba(0, 229, 255, 0.8),
+      rgba(99, 102, 241, 0.8),
+      rgba(168, 85, 247, 0.8),
+      rgba(0, 229, 255, 0.8)
+    );
+  }
+  25% {
+    background: conic-gradient(
+      from 90deg at var(--mouse-x) var(--mouse-y),
+      rgba(0, 229, 255, 0.8),
+      rgba(99, 102, 241, 0.8),
+      rgba(168, 85, 247, 0.8),
+      rgba(0, 229, 255, 0.8)
+    );
+  }
+  50% {
+    background: conic-gradient(
+      from 180deg at var(--mouse-x) var(--mouse-y),
+      rgba(0, 229, 255, 0.8),
+      rgba(99, 102, 241, 0.8),
+      rgba(168, 85, 247, 0.8),
+      rgba(0, 229, 255, 0.8)
+    );
+  }
+  75% {
+    background: conic-gradient(
+      from 270deg at var(--mouse-x) var(--mouse-y),
+      rgba(0, 229, 255, 0.8),
+      rgba(99, 102, 241, 0.8),
+      rgba(168, 85, 247, 0.8),
+      rgba(0, 229, 255, 0.8)
+    );
+  }
+  100% {
+    background: conic-gradient(
+      from 360deg at var(--mouse-x) var(--mouse-y),
+      rgba(0, 229, 255, 0.8),
+      rgba(99, 102, 241, 0.8),
+      rgba(168, 85, 247, 0.8),
+      rgba(0, 229, 255, 0.8)
+    );
+  }
+}
+
+.glowEffect {
+  position: relative;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+.glowEffect::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    300px circle at var(--mouse-x) var(--mouse-y),
+    rgba(0, 229, 255, 0.15),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glowEffect:hover::after {
+  opacity: 1;
+}
+
+.energyLines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.energyLines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 229, 255, 0.8),
+    transparent
+  );
+  animation: energyFlow 2s linear infinite;
+}
+
+@keyframes energyFlow {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.pulseGlow {
+  animation: pulseGlowAnimation 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlowAnimation {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.6);
+  }
+}
+
+.floatingParticles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 229, 255, 0.8);
+  border-radius: 50%;
+  animation: floatUp 3s ease-out infinite;
+}
+
+.particle:nth-child(2) {
+  animation-delay: 0.5s;
+  background: rgba(99, 102, 241, 0.8);
+}
+
+.particle:nth-child(3) {
+  animation-delay: 1s;
+  background: rgba(168, 85, 247, 0.8);
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%) scale(0);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(90%) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(-90%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%) scale(0);
+  }
+}
+
+.shimmerEffect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmerEffect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.shimmerEffect:hover::before {
+  left: 100%;
+}
+
+/* Efectos de texto brillante */
+.glowText {
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  transition: text-shadow 0.3s ease;
+}
+
+.glowText:hover {
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.8);
+}
+
+/* Animación de ondas en el fondo */
+.waveBackground {
+  position: relative;
+  overflow: hidden;
+}
+
+.waveBackground::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 229, 255, 0.1) 0%,
+    transparent 50%
+  );
+  animation: waveMove 10s ease-in-out infinite;
+}
+
+@keyframes waveMove {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Efecto de cristal */
+.glassEffect {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glassEffect:hover {
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}

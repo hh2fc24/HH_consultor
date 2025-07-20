@@ -1,13 +1,16 @@
+
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+// Se añade el icono 'Mouse' para el indicador de scroll
+import { Mouse } from 'lucide-react'; 
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeMetric, setActiveMetric] = useState(0);
   const [connectedUsers, setConnectedUsers] = useState(1247);
-  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
@@ -50,22 +53,18 @@ const HeroSection = () => {
 
   // GRADIENTE EXACTO DEL LOGO HUGO - HORIZONTAL COMO EN EL LOGO
   const hugoGradient = {
-    // Gradiente EXACTO del logo - horizontal de izquierda a derecha
     logoExact: 'linear-gradient(90deg, #00E5FF 0%, #00B8E6 25%, #0099CC 50%, #007BB8 75%, #005F9F 100%)',
-    // Para el título - mismo gradiente pero optimizado para texto
     titleHorizontal: 'linear-gradient(90deg, #00E5FF 0%, #00D4FF 20%, #00B8E6 40%, #0099CC 60%, #007BB8 80%, #005F9F 100%)',
-    // Para acentos - versión más sutil
     accent: 'linear-gradient(90deg, #00D4FF 0%, #00B8E6 50%, #0099CC 100%)',
-    // Para elementos sutiles
     subtle: 'linear-gradient(90deg, rgba(0, 229, 255, 0.8) 0%, rgba(0, 184, 230, 0.6) 100%)',
   };
 
   const hugoColors = {
-    primary: '#00E5FF', // Azul más claro del logo
+    primary: '#00E5FF',
     primaryRgb: '0, 229, 255',
     secondary: '#0099CC', 
     accent: '#00B8E6',
-    dark: '#005F9F', // Azul más oscuro del logo
+    dark: '#005F9F',
     gradient: hugoGradient,
   };
 
@@ -174,7 +173,6 @@ const HeroSection = () => {
       }}
     >
       
-      {/* Video de fondo */}
       <div style={{ 
         position: 'absolute', 
         inset: 0, 
@@ -190,8 +188,8 @@ const HeroSection = () => {
             width: `${100 + φ * 2}%`,
             height: `${100 + φ * 2}%`,
             objectFit: 'cover', 
-            opacity: 0.5,
-            filter: 'brightness(0.3) contrast(1.1) saturate(0.9)',
+            opacity: 0.6,
+            filter: 'brightness(0.5) contrast(1.1) saturate(1)',
             transform: `scale(${1 + φ * 0.01})`,
           }}
         >
@@ -212,7 +210,6 @@ const HeroSection = () => {
         }}/>
       </div>
 
-      {/* Partículas minimalistas */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
         {fib.slice(0, 5).map((fibNum, i) => {
           const distanceFromMouse = Math.sqrt(
@@ -250,7 +247,6 @@ const HeroSection = () => {
         })}
       </div>
 
-      {/* Contenedor principal */}
       <div style={{
         position: 'relative',
         zIndex: 2,
@@ -264,7 +260,6 @@ const HeroSection = () => {
         minHeight: '100vh',
       }}>
         
-        {/* Columna principal */}
         <div style={{
           display: 'flex',
           flexDirection: 'column',
@@ -272,44 +267,37 @@ const HeroSection = () => {
           ...parallaxTransform(2),
         }}>
           
-          {/* TÍTULO CON GRADIENTE EXACTO DEL LOGO HUGO */}
           <div style={fadeInUp(0.1)}>
             <h1 style={{
-              fontSize: φSystem.text.φ9, // 68px - Protagonista total
-              fontWeight: 700, // Bold para máximo impacto
-              lineHeight: 0.95, // Compacto y moderno
+              fontSize: φSystem.text.φ9,
+              fontWeight: 700,
+              lineHeight: 0.95,
               margin: 0,
               fontFamily: '"SF Pro Display", system-ui, sans-serif',
-              maxWidth: `${φ * φ * 20}rem`, // Ancho generoso
-              marginBottom: φSystem.space.φ4, // Espacio áureo
+              maxWidth: `${φ * φ * 20}rem`,
+              marginBottom: φSystem.space.φ4,
               position: 'relative',
-              letterSpacing: `-${1/φ * 0.08}em`, // Tight y profesional
+              letterSpacing: `-${1/φ * 0.08}em`,
             }}>
-              {/* TÍTULO PRINCIPAL CON GRADIENTE HORIZONTAL EXACTO DEL LOGO */}
               <span style={{
                 display: 'block',
-                marginBottom: φSystem.space.φ3, // 16px
-                // GRADIENTE HORIZONTAL EXACTO DEL LOGO HUGO
+                marginBottom: φSystem.space.φ3,
                 backgroundImage: hugoColors.gradient.titleHorizontal,
-                backgroundSize: '100% 100%', // Asegurar que cubra todo el texto
+                backgroundSize: '100% 100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 color: 'transparent',
-                // Sombra sutil que realza el gradiente
                 filter: `drop-shadow(0 ${φSystem.space.φ2} ${φSystem.space.φ4} rgba(0, 0, 0, 0.4))`,
-                // Hover elegante que intensifica el gradiente
                 transition: `all ${φ * 0.3}s ease-out`,
               } as React.CSSProperties}
               onMouseEnter={(e) => {
-                // En hover, intensificar el gradiente y la sombra
                 e.currentTarget.style.backgroundImage = 'linear-gradient(90deg, #00F0FF 0%, #00E5FF 15%, #00D4FF 30%, #00B8E6 50%, #0099CC 70%, #007BB8 85%, #005F9F 100%)';
                 e.currentTarget.style.filter = `drop-shadow(0 ${φSystem.space.φ2} ${φSystem.space.φ5} rgba(0, 229, 255, 0.3))`;
                 e.currentTarget.style.transform = `translateY(-${φSystem.space.φ0})`;
               }}
               onMouseLeave={(e) => {
-                // Volver al gradiente original
                 e.currentTarget.style.backgroundImage = hugoColors.gradient.titleHorizontal;
                 e.currentTarget.style.filter = `drop-shadow(0 ${φSystem.space.φ2} ${φSystem.space.φ4} rgba(0, 0, 0, 0.4))`;
                 e.currentTarget.style.transform = 'translateY(0)';
@@ -318,13 +306,11 @@ const HeroSection = () => {
                 Multiplica tus ingresos
               </span>
 
-              {/* Subtítulo elegante con gradiente sutil */}
               <span style={{
-                fontSize: φSystem.text.φ7, // 42px - Proporción áurea perfecta
+                fontSize: φSystem.text.φ7,
                 fontWeight: 400,
                 color: 'rgba(255, 255, 255, 0.85)',
                 display: 'block',
-                // Gradiente sutil solo en hover
                 transition: `all ${φ * 0.3}s ease-out`,
               } as React.CSSProperties}
               onMouseEnter={(e) => {
@@ -345,14 +331,13 @@ const HeroSection = () => {
                 mientras recuperas tu tiempo
               </span>
 
-              {/* Línea decorativa con gradiente del logo */}
               <div 
                 style={{
                   position: 'absolute',
-                  bottom: `-${φSystem.space.φ4}`, // -26px
+                  bottom: `-${φSystem.space.φ4}`,
                   left: 0,
-                  width: `${φ * 30}%`, // 48.54% - proporción áurea
-                  height: `${φ}px`, // 1.618px
+                  width: `${φ * 30}%`,
+                  height: `${φ}px`,
                   backgroundImage: hugoColors.gradient.accent,
                   borderRadius: `${φ}px`,
                   opacity: 0,
@@ -366,7 +351,6 @@ const HeroSection = () => {
             </h1>
           </div>
 
-          {/* Descripción */}
           <div style={fadeInUp(0.2)}>
             <div 
               style={{
@@ -441,7 +425,6 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* CTAs */}
           <div style={{
             ...fadeInUp(0.3),
             display: 'flex',
@@ -454,81 +437,40 @@ const HeroSection = () => {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: φSystem.space.φ3,
-                padding: `${φSystem.space.φ4} ${φSystem.space.φ5}`,
-                backgroundColor: 'rgba(255,255,255,0.95)',
-                color: '#000000',
-                borderRadius: φSystem.radius.φ2,
-                fontWeight: 500,
-                fontSize: φSystem.text.φ3,
-                textDecoration: 'none',
+                display: 'inline-flex', alignItems: 'center', gap: φSystem.space.φ3,
+                padding: `${φSystem.space.φ4} ${φSystem.space.φ5}`, backgroundColor: 'rgba(255,255,255,0.95)', color: '#000000',
+                borderRadius: φSystem.radius.φ2, fontWeight: 500, fontSize: φSystem.text.φ3, textDecoration: 'none',
                 transition: `all ${φ * 0.185}s ease-out`,
-                boxShadow: `
-                  0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(255, 255, 255, 0.1),
-                  0 ${1/φ}px ${φSystem.space.φ2} rgba(0, 0, 0, 0.05)
-                `,
-                fontFamily: '"SF Pro Display", system-ui, sans-serif',
-                letterSpacing: `-${1/φ * 0.015}em`,
-                minWidth: `${φ * 8}rem`,
-                justifyContent: 'center',
+                boxShadow: `0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(255, 255, 255, 0.1), 0 ${1/φ}px ${φSystem.space.φ2} rgba(0, 0, 0, 0.05)`,
+                fontFamily: '"SF Pro Display", system-ui, sans-serif', letterSpacing: `-${1/φ * 0.015}em`, minWidth: `${φ * 8}rem`, justifyContent: 'center',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = `translateY(-${φSystem.space.φ1})`;
-                e.currentTarget.style.boxShadow = `
-                  0 ${φSystem.space.φ3} ${φSystem.space.φ5} rgba(${hugoColors.primaryRgb}, 0.15),
-                  0 ${φSystem.space.φ1} ${φSystem.space.φ3} rgba(0, 0, 0, 0.1)
-                `;
+                e.currentTarget.style.boxShadow = `0 ${φSystem.space.φ3} ${φSystem.space.φ5} rgba(${hugoColors.primaryRgb}, 0.15), 0 ${φSystem.space.φ1} ${φSystem.space.φ3} rgba(0, 0, 0, 0.1)`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = `
-                  0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(255, 255, 255, 0.1),
-                  0 ${1/φ}px ${φSystem.space.φ2} rgba(0, 0, 0, 0.05)
-                `;
+                e.currentTarget.style.boxShadow = `0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(255, 255, 255, 0.1), 0 ${1/φ}px ${φSystem.space.φ2} rgba(0, 0, 0, 0.05)`;
               }}
             >
               Consulta Estratégica
               <div style={{
-                width: φSystem.space.φ4,
-                height: φSystem.space.φ4,
-                backgroundColor: 'rgba(0,0,0,0.08)',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: φSystem.text.φ2,
-                transition: `all ${φ * 0.123}s ease`,
-              }}>
-                →
-              </div>
+                width: φSystem.space.φ4, height: φSystem.space.φ4, backgroundColor: 'rgba(0,0,0,0.08)',
+                borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: φSystem.text.φ2, transition: `all ${φ * 0.123}s ease`,
+              }}>→</div>
             </a>
             
             <a
               href="#calculadora"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: φSystem.space.φ3,
-                padding: `${φSystem.space.φ4} ${φSystem.space.φ5}`,
-                backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.08)`,
-                backdropFilter: `blur(${φ * 12}px)`,
-                border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.25)`,
-                color: 'rgba(255, 255, 255, 0.92)',
-                borderRadius: φSystem.radius.φ2,
-                fontWeight: 500,
-                fontSize: φSystem.text.φ3,
-                textDecoration: 'none',
-                transition: `all ${φ * 0.185}s ease-out`,
-                fontFamily: '"SF Pro Display", system-ui, sans-serif',
-                letterSpacing: `-${1/φ * 0.015}em`,
-                minWidth: `${φ * 6.5}rem`,
-                justifyContent: 'center',
-                boxShadow: `
-                  0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(0, 0, 0, 0.1),
-                  inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.05)
-                `,
+                display: 'inline-flex', alignItems: 'center', gap: φSystem.space.φ3, padding: `${φSystem.space.φ4} ${φSystem.space.φ5}`,
+                backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.08)`, backdropFilter: `blur(${φ * 12}px)`,
+                border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.25)`, color: 'rgba(255, 255, 255, 0.92)',
+                borderRadius: φSystem.radius.φ2, fontWeight: 500, fontSize: φSystem.text.φ3, textDecoration: 'none',
+                transition: `all ${φ * 0.185}s ease-out`, fontFamily: '"SF Pro Display", system-ui, sans-serif',
+                letterSpacing: `-${1/φ * 0.015}em`, minWidth: `${φ * 6.5}rem`, justifyContent: 'center',
+                boxShadow: `0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(0, 0, 0, 0.1), inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.05)`,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = `rgba(${hugoColors.primaryRgb}, 0.4)`;
@@ -548,7 +490,6 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Columna lateral - métricas y testimonial (sin cambios) */}
         <div style={{
           display: 'flex',
           flexDirection: 'column',
@@ -556,28 +497,13 @@ const HeroSection = () => {
           ...parallaxTransform(-3),
         }}>
           
-          {/* Métrica principal */}
           <div style={{
-            ...fadeInUp(0.2),
-            padding: φSystem.space.φ5,
-            backgroundColor: 'rgba(0, 0, 0, 0.25)',
-            backdropFilter: `blur(${φ * 18}px)`,
-            border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.15)`,
-            borderRadius: φSystem.radius.φ4,
-            textAlign: 'center',
-            position: 'relative',
-            overflow: 'hidden',
-            minHeight: `${φ * φ * 6}rem`,
-            width: `${φ * 15}rem`,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            transition: `all ${φ * 0.185}s ease-out`,
-            boxShadow: `
-              0 ${φSystem.space.φ3} ${φSystem.space.φ6} rgba(0, 0, 0, 0.15),
-              inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.05),
-              inset 0 -${1/φ}px 0 rgba(0, 0, 0, 0.1)
-            `,
+            ...fadeInUp(0.2), padding: φSystem.space.φ5, backgroundColor: 'rgba(0, 0, 0, 0.25)',
+            backdropFilter: `blur(${φ * 18}px)`, border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.15)`,
+            borderRadius: φSystem.radius.φ4, textAlign: 'center', position: 'relative', overflow: 'hidden',
+            minHeight: `${φ * φ * 6}rem`, width: `${φ * 15}rem`, display: 'flex',
+            flexDirection: 'column', justifyContent: 'center', transition: `all ${φ * 0.185}s ease-out`,
+            boxShadow: `0 ${φSystem.space.φ3} ${φSystem.space.φ6} rgba(0, 0, 0, 0.15), inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.05), inset 0 -${1/φ}px 0 rgba(0, 0, 0, 0.1)`,
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = `rgba(${hugoColors.primaryRgb}, 0.25)`;
@@ -590,133 +516,55 @@ const HeroSection = () => {
             e.currentTarget.style.transform = 'translateY(0)';
           }}
           >
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundImage: `radial-gradient(circle at ${φ * 20}% ${φ * 20}%, rgba(${hugoColors.primaryRgb}, 0.03) 0%, transparent 50%), radial-gradient(circle at ${100 - φ * 20}% ${100 - φ * 20}%, rgba(${hugoColors.primaryRgb}, 0.02) 0%, transparent 50%)`, animation: `rotate ${φ * 12}s linear infinite` }}/>
             <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundImage: `
-                radial-gradient(circle at ${φ * 20}% ${φ * 20}%, rgba(${hugoColors.primaryRgb}, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at ${100 - φ * 20}% ${100 - φ * 20}%, rgba(${hugoColors.primaryRgb}, 0.02) 0%, transparent 50%)
-              `,
-              animation: `rotate ${φ * 12}s linear infinite`,
-            }}/>
-
-            <div style={{
-              position: 'absolute',
-              top: φSystem.space.φ4,
-              right: φSystem.space.φ4,
-              display: 'flex',
-              alignItems: 'center',
-              gap: φSystem.space.φ2,
-              fontSize: φSystem.text.φ1,
-              color: 'rgba(255, 255, 255, 0.8)',
-              fontWeight: 500,
-              padding: `${φSystem.space.φ2} ${φSystem.space.φ3}`,
-              backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.08)`,
-              borderRadius: φSystem.radius.φ1,
-              border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.2)`,
-              backdropFilter: `blur(${φ * 8}px)`,
+              position: 'absolute', top: φSystem.space.φ4, right: φSystem.space.φ4, display: 'flex',
+              alignItems: 'center', gap: φSystem.space.φ2, fontSize: φSystem.text.φ1, color: 'rgba(255, 255, 255, 0.8)',
+              fontWeight: 500, padding: `${φSystem.space.φ2} ${φSystem.space.φ3}`, backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.08)`,
+              borderRadius: φSystem.radius.φ1, border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.2)`, backdropFilter: `blur(${φ * 8}px)`,
             }}>
-              <div style={{
-                width: φSystem.space.φ1,
-                height: φSystem.space.φ1,
-                backgroundImage: hugoColors.gradient.accent,
-                borderRadius: '50%',
-                animation: `pulse ${φ * 1.236}s ease-in-out infinite`,
-                boxShadow: `0 0 ${φSystem.space.φ2} rgba(${hugoColors.primaryRgb}, 0.6)`,
-              }}/>
+              <div style={{ width: φSystem.space.φ1, height: φSystem.space.φ1, backgroundImage: hugoColors.gradient.accent, borderRadius: '50%', animation: `pulse ${φ * 1.236}s ease-in-out infinite`, boxShadow: `0 0 ${φSystem.space.φ2} rgba(${hugoColors.primaryRgb}, 0.6)` }}/>
               EN VIVO
             </div>
-
             <div style={{
-              fontSize: φSystem.text.φ8,
-              fontWeight: 700,
+              fontSize: φSystem.text.φ8, fontWeight: 700,
               backgroundImage: metrics[activeMetric].highlight ? hugoColors.gradient.titleHorizontal : 'none',
               backgroundColor: metrics[activeMetric].highlight ? 'transparent' : '#ffffff',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: metrics[activeMetric].highlight ? 'transparent' : '#ffffff',
-              color: metrics[activeMetric].highlight ? 'transparent' : '#ffffff',
-              marginBottom: φSystem.space.φ4,
-              fontFamily: '"SF Pro Display", system-ui, sans-serif',
-              letterSpacing: `-${1/φ * 0.04}em`,
-              transition: `all ${φ * 0.494}s ease-out`,
-              position: 'relative',
-              zIndex: 1,
-              textShadow: metrics[activeMetric].highlight 
-                ? 'none'
-                : `0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(0, 0, 0, 0.6)`,
+              backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: metrics[activeMetric].highlight ? 'transparent' : '#ffffff',
+              color: metrics[activeMetric].highlight ? 'transparent' : '#ffffff', marginBottom: φSystem.space.φ4,
+              fontFamily: '"SF Pro Display", system-ui, sans-serif', letterSpacing: `-${1/φ * 0.04}em`,
+              transition: `all ${φ * 0.494}s ease-out`, position: 'relative', zIndex: 1,
+              textShadow: metrics[activeMetric].highlight ? 'none' : `0 ${φSystem.space.φ1} ${φSystem.space.φ4} rgba(0, 0, 0, 0.6)`,
             } as React.CSSProperties}>
               {metrics[activeMetric].value}{metrics[activeMetric].suffix}
             </div>
-            
             <div style={{
-              color: 'rgba(255, 255, 255, 0.85)',
-              fontWeight: 400,
-              fontSize: φSystem.text.φ2,
-              fontFamily: '"SF Pro Text", system-ui, sans-serif',
-              transition: `all ${φ * 0.494}s ease-out`,
-              position: 'relative',
-              zIndex: 1,
-              lineHeight: φ,
-              maxWidth: `${φ * 12}rem`,
-              margin: '0 auto',
+              color: 'rgba(255, 255, 255, 0.85)', fontWeight: 400, fontSize: φSystem.text.φ2,
+              fontFamily: '"SF Pro Text", system-ui, sans-serif', transition: `all ${φ * 0.494}s ease-out`,
+              position: 'relative', zIndex: 1, lineHeight: φ, maxWidth: `${φ * 12}rem`, margin: '0 auto',
             }}>
               {metrics[activeMetric].label}
             </div>
-
-            <div style={{
-              display: 'flex',
-              gap: φSystem.space.φ2,
-              justifyContent: 'center',
-              marginTop: φSystem.space.φ4,
-              position: 'relative',
-              zIndex: 1,
-            }}>
+            <div style={{ display: 'flex', gap: φSystem.space.φ2, justifyContent: 'center', marginTop: φSystem.space.φ4, position: 'relative', zIndex: 1 }}>
               {metrics.map((_, index) => (
-                <div
-                  key={index}
-                  style={{
-                    width: φSystem.space.φ2,
-                    height: φSystem.space.φ2,
-                    borderRadius: '50%',
-                    backgroundImage: index === activeMetric 
-                      ? hugoColors.gradient.accent
-                      : 'none',
-                    backgroundColor: index === activeMetric 
-                      ? 'transparent'
-                      : 'rgba(255, 255, 255, 0.25)',
+                <div key={index} style={{
+                    width: φSystem.space.φ2, height: φSystem.space.φ2, borderRadius: '50%',
+                    backgroundImage: index === activeMetric ? hugoColors.gradient.accent : 'none',
+                    backgroundColor: index === activeMetric ? 'transparent' : 'rgba(255, 255, 255, 0.25)',
                     transition: `all ${φ * 0.247}s ease`,
-                    boxShadow: index === activeMetric 
-                      ? `0 0 ${φSystem.space.φ3} rgba(${hugoColors.primaryRgb}, 0.6)` 
-                      : 'none',
-                    border: index === activeMetric 
-                      ? `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.4)`
-                      : `${1/φ}px solid rgba(255, 255, 255, 0.15)`,
-                  }}
-                />
+                    boxShadow: index === activeMetric ? `0 0 ${φSystem.space.φ3} rgba(${hugoColors.primaryRgb}, 0.6)` : 'none',
+                    border: index === activeMetric ? `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.4)` : `${1/φ}px solid rgba(255, 255, 255, 0.15)`,
+                }}/>
               ))}
             </div>
           </div>
 
-          {/* Testimonial */}
           <div style={{
-            ...fadeInUp(0.3),
-            padding: φSystem.space.φ5,
-            backgroundColor: 'rgba(0, 0, 0, 0.2)',
-            backdropFilter: `blur(${φ * 18}px)`,
-            border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.12)`,
-            borderRadius: φSystem.radius.φ3,
-            position: 'relative',
-            transition: `all ${φ * 0.185}s ease-out`,
-            overflow: 'hidden',
-            width: `${φ * 15}rem`,
-            boxShadow: `
-              0 ${φSystem.space.φ2} ${φSystem.space.φ5} rgba(0, 0, 0, 0.1),
-              inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.03)
-            `,
+            ...fadeInUp(0.3), padding: φSystem.space.φ5, backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            backdropFilter: `blur(${φ * 18}px)`, border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.12)`,
+            borderRadius: φSystem.radius.φ3, position: 'relative', transition: `all ${φ * 0.185}s ease-out`,
+            overflow: 'hidden', width: `${φ * 15}rem`,
+            boxShadow: `0 ${φSystem.space.φ2} ${φSystem.space.φ5} rgba(0, 0, 0, 0.1), inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.03)`,
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = `rgba(${hugoColors.primaryRgb}, 0.2)`;
@@ -729,105 +577,35 @@ const HeroSection = () => {
             e.currentTarget.style.transform = 'translateY(0)';
           }}
           >
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: `${1/φ}px`,
-              backgroundImage: hugoColors.gradient.accent,
-              opacity: 0.4,
-            }}/>
-
-            <div style={{
-              display: 'flex',
-              alignItems: 'start',
-              gap: φSystem.space.φ4,
-              position: 'relative',
-              zIndex: 1,
-            }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: `${1/φ}px`, backgroundImage: hugoColors.gradient.accent, opacity: 0.4 }}/>
+            <div style={{ display: 'flex', alignItems: 'start', gap: φSystem.space.φ4, position: 'relative', zIndex: 1 }}>
               <div style={{
-                width: φSystem.space.φ6,
-                height: φSystem.space.φ6,
-                backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.15)`,
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: hugoColors.primary,
-                fontWeight: 600,
-                fontSize: φSystem.text.φ4,
-                flexShrink: 0,
-                fontFamily: '"SF Pro Display", system-ui, sans-serif',
-                border: `${φ}px solid rgba(${hugoColors.primaryRgb}, 0.3)`,
-                boxShadow: `
-                  0 0 ${φSystem.space.φ4} rgba(${hugoColors.primaryRgb}, 0.2),
-                  inset 0 ${1/φ}px ${φSystem.space.φ1} rgba(255, 255, 255, 0.1)
-                `,
+                width: φSystem.space.φ6, height: φSystem.space.φ6, backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.15)`,
+                borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: hugoColors.primary,
+                fontWeight: 600, fontSize: φSystem.text.φ4, flexShrink: 0, fontFamily: '"SF Pro Display", system-ui, sans-serif',
+                border: `${φ}px solid rgba(${hugoColors.primaryRgb}, 0.3)`, boxShadow: `0 0 ${φSystem.space.φ4} rgba(${hugoColors.primaryRgb}, 0.2), inset 0 ${1/φ}px ${φSystem.space.φ1} rgba(255, 255, 255, 0.1)`,
                 position: 'relative',
               }}>
                 JM
-                <div style={{
-                  position: 'absolute',
-                  top: `-${φSystem.space.φ0}`,
-                  right: `-${φSystem.space.φ0}`,
-                  width: φSystem.space.φ3,
-                  height: φSystem.space.φ3,
-                  backgroundImage: hugoColors.gradient.accent,
-                  borderRadius: '50%',
-                  border: `${φ}px solid #000000`,
-                  boxShadow: `0 0 ${φSystem.space.φ2} rgba(${hugoColors.primaryRgb}, 0.8)`,
-                }}/>
+                <div style={{ position: 'absolute', top: `-${φSystem.space.φ0}`, right: `-${φSystem.space.φ0}`, width: φSystem.space.φ3, height: φSystem.space.φ3, backgroundImage: hugoColors.gradient.accent, borderRadius: '50%', border: `${φ}px solid #000000`, boxShadow: `0 0 ${φSystem.space.φ2} rgba(${hugoColors.primaryRgb}, 0.8)` }}/>
               </div>
               
               <div style={{ flex: 1 }}>
-                <div style={{
-                  fontWeight: 600,
-                  color: 'rgba(255, 255, 255, 0.95)',
-                  marginBottom: φSystem.space.φ3,
-                  fontSize: φSystem.text.φ3,
-                  fontFamily: '"SF Pro Display", system-ui, sans-serif',
-                  letterSpacing: `-${1/φ * 0.01}em`,
-                }}>
+                <div style={{ fontWeight: 600, color: 'rgba(255, 255, 255, 0.95)', marginBottom: φSystem.space.φ3, fontSize: φSystem.text.φ3, fontFamily: '"SF Pro Display", system-ui, sans-serif', letterSpacing: `-${1/φ * 0.01}em` }}>
                   Juan Martínez, CEO
                 </div>
-                
-                <div style={{
-                  color: 'rgba(255, 255, 255, 0.82)',
-                  fontSize: φSystem.text.φ2,
-                  lineHeight: φ,
-                  marginBottom: φSystem.space.φ4,
-                  fontFamily: '"SF Pro Text", system-ui, sans-serif',
-                  fontStyle: 'italic',
-                }}>
+                <div style={{ color: 'rgba(255, 255, 255, 0.82)', fontSize: φSystem.text.φ2, lineHeight: φ, marginBottom: φSystem.space.φ4, fontFamily: '"SF Pro Text", system-ui, sans-serif', fontStyle: 'italic' }}>
                   "En 90 días automatizamos el 70%. Ahora trabajo 30h/semana y ganamos 3x más."
                 </div>
-                
                 <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: φSystem.space.φ2,
-                  color: hugoColors.primary,
-                  fontSize: φSystem.text.φ1,
-                  fontWeight: 600,
-                  padding: `${φSystem.space.φ2} ${φSystem.space.φ3}`,
-                  backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.08)`,
-                  borderRadius: φSystem.radius.φ1,
+                  display: 'inline-flex', alignItems: 'center', gap: φSystem.space.φ2, color: hugoColors.primary,
+                  fontSize: φSystem.text.φ1, fontWeight: 600, padding: `${φSystem.space.φ2} ${φSystem.space.φ3}`,
+                  backgroundColor: `rgba(${hugoColors.primaryRgb}, 0.08)`, borderRadius: φSystem.radius.φ1,
                   border: `${1/φ}px solid rgba(${hugoColors.primaryRgb}, 0.25)`,
-                  boxShadow: `
-                    0 0 ${φSystem.space.φ3} rgba(${hugoColors.primaryRgb}, 0.15),
-                    inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.05)
-                  `,
+                  boxShadow: `0 0 ${φSystem.space.φ3} rgba(${hugoColors.primaryRgb}, 0.15), inset 0 ${1/φ}px 0 rgba(255, 255, 255, 0.05)`,
                   backdropFilter: `blur(${φ * 8}px)`,
                 }}>
-                  <div style={{
-                    width: `${φ * 2}px`,
-                    height: `${φ * 2}px`,
-                    backgroundImage: hugoColors.gradient.accent,
-                    borderRadius: '50%',
-                    boxShadow: `0 0 ${φSystem.space.φ2} rgba(${hugoColors.primaryRgb}, 0.8)`,
-                    animation: `pulse ${φ * 1.236}s ease-in-out infinite`,
-                  }}/>
+                  <div style={{ width: `${φ * 2}px`, height: `${φ * 2}px`, backgroundImage: hugoColors.gradient.accent, borderRadius: '50%', boxShadow: `0 0 ${φSystem.space.φ2} rgba(${hugoColors.primaryRgb}, 0.8)`, animation: `pulse ${φ * 1.236}s ease-in-out infinite` }}/>
                   +300% ROI verificado
                 </div>
               </div>
@@ -836,7 +614,30 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Estilos minimalistas y profesionales */}
+      <a
+        href="#sobre-mi"
+        style={{
+          position: 'absolute',
+          bottom: '2rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '0.5rem',
+          color: 'rgba(255, 255, 255, 0.5)',
+          textDecoration: 'none',
+          transition: 'color 0.3s ease',
+        }}
+        className="animate-bounce-slow"
+        onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.9)'}
+        onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.5)'}
+      >
+        <Mouse className="w-6 h-6" />
+        <span className="text-xs font-medium tracking-widest uppercase">Explora</span>
+      </a>
+
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) scale(1); }
@@ -859,13 +660,25 @@ const HeroSection = () => {
           to { transform: rotate(360deg); }
         }
 
-        /* Hover effect para la línea del título */
+        @keyframes bounce-slow {
+          0%, 100% {
+            transform: translateY(-15%);
+            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+          }
+          50% {
+            transform: translateY(0);
+            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+          }
+        }
+        .animate-bounce-slow {
+          animation: bounce-slow 2.5s infinite;
+        }
+
         h1:hover .title-underline {
           opacity: 1 !important;
           transform: scaleX(1) !important;
         }
 
-        /* Responsive */
         @media (max-width: ${φ * 633}px) {
           div[style*="gridTemplateColumns"] {
             grid-template-columns: 1fr !important;

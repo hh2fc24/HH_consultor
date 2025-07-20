@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import CanvasSpotlight from "@/components/CanvasSpotlight"; // <-- Importa el nuevo componente
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,14 +14,15 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
 });
 
-const jetBrainsMono = JetBrains_Mono({
+const jetBrains_Mono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Hugo Hormazábal | IA Personalizada con Propósito",
-  description: "Consultoría estratégica premium en inteligencia artificial con enfoque humano y resultados reales.",
+  description:
+    "Consultoría estratégica premium en inteligencia artificial con enfoque humano y resultados reales.",
 };
 
 export default function RootLayout({
@@ -31,17 +33,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${inter.variable} ${poppins.variable} ${jetBrainsMono.variable} antialiased text-white`}
-        style={{
-          backgroundColor: "#000000", // Fondo negro para la nueva paleta
-          minHeight: "100vh",
-          WebkitFontSmoothing: "antialiased",
-          MozOsxFontSmoothing: "grayscale",
-        }}
+        className={`${inter.variable} ${poppins.variable} ${jetBrains_Mono.variable} antialiased text-white bg-black`}
       >
-        {children}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {children}
+        </div>
+        <CanvasSpotlight /> {/* <-- Usa el nuevo componente aquí */}
       </body>
     </html>
   );
 }
-
