@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import CanvasSpotlight from "@/components/CanvasSpotlight"; // <-- Importa el nuevo componente
+import CanvasSpotlight from "@/components/CanvasSpotlight";
+import FloatingLogo from "@/components/FloatingLogo"; // <-- 1. Importa el logo flotante
 
 const inter = Inter({
   variable: "--font-inter",
@@ -35,10 +36,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${poppins.variable} ${jetBrains_Mono.variable} antialiased text-white bg-black`}
       >
+        <FloatingLogo /> {/* <-- 2. Añade el componente aquí */}
+        
         <div style={{ position: 'relative', zIndex: 1 }}>
           {children}
         </div>
-        <CanvasSpotlight /> {/* <-- Usa el nuevo componente aquí */}
+        
+        <CanvasSpotlight />
       </body>
     </html>
   );

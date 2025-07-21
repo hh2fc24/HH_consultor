@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { Sparkles, Eye, Zap, Wind, Shield, Users, Award, TrendingUp, Clock } from 'lucide-react';
+import { Sparkles, User, Users, Building2, Clock, TrendingUp, Award, Zap, Target, ArrowRight } from 'lucide-react';
 
 const IAPowersImproved = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -13,89 +13,81 @@ const IAPowersImproved = () => {
     goldAccent: 'from-amber-400 to-yellow-500',
   };
 
-  const superpowers = [
+  const targetAudiences = [
     { 
-      level: "I", 
-      title: "Visión Aumentada", 
-      subtitle: "El Poder de Ver lo Invisible", 
-      icon: <Eye className="w-8 h-8 text-cyan-400" />, 
-      insight: "Tus datos esconden patrones y oportunidades que el ojo humano no puede ver. La IA te da un nuevo par de ojos.", 
-      objective: "Transformar datos brutos en insights estratégicos y decisiones predictivas que te pongan por delante de la competencia.", 
-      benefit: "Claridad absoluta. Anticipación. Decisiones basadas en evidencia, no en intuición.",
-      metrics: { value: "85%", label: "Precisión Predictiva" }
+      icon: <User className="w-8 h-8 text-cyan-400" />, 
+      title: "¿Quieres usar IA pero no sabes por dónde empezar?", 
+      subtitle: "Para personas naturales", 
+      description: "Sientes que la IA podría ayudarte, pero te abruma la cantidad de herramientas. Pierdes tiempo en tareas repetitivas que podrían automatizarse. Quieres crear contenido de calidad pero te falta inspiración o te toma demasiado tiempo.",
+      solution: "Te enseñamos a usar IA práctica desde cero. Aprenderás a crear contenido, automatizar tareas y organizar tu trabajo sin necesidad de conocimientos técnicos.",
+      benefit: "Recupera 10 horas semanales",
+      buttonText: "Quiero aprender desde cero",
+      color: "cyan",
+      painPoints: ["Tareas repetitivas que consumen tiempo", "Falta de ideas para contenido", "Sensación de quedarse atrás tecnológicamente"]
     },
     { 
-      level: "II", 
-      title: "Creación Acelerada", 
-      subtitle: "El Poder de la Generación Infinita", 
-      icon: <Zap className="w-8 h-8 text-cyan-400" />, 
-      insight: "La página en blanco es el mayor enemigo de la productividad. La IA es tu musa y tu asistente incansable.", 
-      objective: "Producir contenido, código, estrategias y creatividades de alta calidad a una velocidad 10x.", 
-      benefit: "Agilidad sin precedentes. Vence el bloqueo creativo. Lanza más rápido y con mejor calidad.",
-      metrics: { value: "10x", label: "Velocidad de Creación" }
+      icon: <Users className="w-8 h-8 text-purple-400" />, 
+      title: "¿Tu equipo necesita ser más eficiente?", 
+      subtitle: "Para equipos de trabajo", 
+      description: "Tu equipo de ventas, marketing o atención al cliente está saturado. Las tareas manuales consumen tiempo que podrían dedicar a actividades estratégicas. Necesitas que todos trabajen de forma más inteligente, no más duro.",
+      solution: "Implementamos talleres prácticos donde tu equipo aprende a usar IA para automatizar procesos, crear contenido y mejorar la atención al cliente. Todo adaptado a tu industria.",
+      benefit: "85% más productividad por persona",
+      buttonText: "Necesito un taller para mi equipo",
+      color: "purple",
+      painPoints: ["Equipos sobrecargados de trabajo manual", "Falta de consistencia en procesos", "Necesidad de escalar sin contratar más personal"]
     },
     { 
-      level: "III", 
-      title: "Hiper-Eficiencia", 
-      subtitle: "El Poder de Eliminar el Desperdicio", 
-      icon: <Wind className="w-8 h-8 text-cyan-400" />, 
-      insight: "El 70% de las tareas de oficina son repetitivas. Son un ancla que frena tu verdadero potencial.", 
-      objective: "Automatizar flujos de trabajo completos, desde la captura de un lead hasta la facturación.", 
-      benefit: "Recupera tu tiempo para la estrategia. Reduce errores a cero. Haz que tu operación sea ligera y letal.",
-      metrics: { value: "70%", label: "Reducción de Tareas" }
-    },
-    { 
-      level: "IV", 
-      title: "Omnipresencia Operativa", 
-      subtitle: "El Poder de Estar en Todas Partes", 
-      icon: <Shield className="w-8 h-8 text-cyan-400" />, 
-      insight: "Tu negocio no puede depender de tu presencia física o de un horario de 9 a 5.", 
-      objective: "Construir un 'Copilot' para tu empresa: un sistema autónomo que atiende clientes, gestiona procesos y opera 24/7.", 
-      benefit: "Escalabilidad real. Experiencia de cliente excepcional. Tranquilidad de saber que tu negocio nunca duerme.",
-      metrics: { value: "24/7", label: "Operación Continua" }
+      icon: <Building2 className="w-8 h-8 text-amber-400" />, 
+      title: "¿Quieres que tu empresa crezca con IA?", 
+      subtitle: "Para empresas", 
+      description: "Tu empresa necesita crecer pero los recursos son limitados. La competencia ya está usando IA y tú no puedes quedarte atrás. Necesitas soluciones que mejoren la experiencia del cliente y optimicen tus operaciones.",
+      solution: "Diseñamos e implementamos soluciones de IA personalizadas para tu empresa. Desde automatización de procesos hasta mejora en la experiencia del cliente, todo sin que necesites un equipo técnico.",
+      benefit: "300% de retorno de inversión",
+      buttonText: "Quiero transformar mi empresa",
+      color: "amber",
+      painPoints: ["Competencia que ya usa IA", "Recursos limitados para crecer", "Procesos ineficientes que frenan el crecimiento"]
     }
   ];
   
   const caseStudies = [
     {
-      icon: <Users className="w-8 h-8 text-cyan-400" />,
-      title: "Atlas IA para Inmobiliarias",
-      description: "Tu asistente inmobiliario que automatiza fichas de propiedades, integra con CRM y analiza el mercado mientras atiendes clientes.",
+      icon: <Building2 className="w-8 h-8 text-cyan-400" />,
+      title: "Atlas Inmobiliario",
+      description: "Una inmobiliaria que ahora crea fichas de propiedades automáticamente, gestiona leads y analiza el mercado mientras se enfoca en cerrar ventas.",
       video: "/1.mp4",
       metrics: [
-        { value: "+40%", label: "Eficiencia" },
-        { value: "300%", label: "ROI (3 meses)" },
-        { value: "2.5h/día", label: "Ahorradas" },
+        { value: "3 horas", label: "Ahorradas diarias" },
+        { value: "40%", label: "Más ventas" },
+        { value: "2 meses", label: "ROI recuperado" },
       ],
       color: "cyan"
     },
     {
       icon: <Sparkles className="w-8 h-8 text-purple-400" />,
-      title: "Asistente Dental IA",
-      description: "Crea fichas clínicas automáticamente por voz durante el examen, permitiendo un enfoque 100% en el paciente.",
+      title: "Copilot Dental",
+      description: "Un dentista que ahora crea historias clínicas por voz durante la consulta, dedicando 100% de su atención al paciente.",
       video: "/2.mp4",
       metrics: [
-        { value: "+60%", label: "Eficiencia" },
-        { value: "98%", label: "Satisfacción Paciente" },
-        { value: "2h/día", label: "Ahorradas" },
+        { value: "2 horas", label: "Ahorradas diarias" },
+        { value: "98%", label: "Satisfacción pacientes" },
+        { value: "30%", label: "Más citas atendidas" },
       ],
       color: "purple"
     },
     {
       icon: <Zap className="w-8 h-8 text-yellow-400" />,
       title: "Prompt Mastery",
-      description: "Metodología de formación para que equipos no-técnicos aprendan a crear soluciones reales con IA sin programar.",
+      description: "Una empresa que capacitó a su equipo para crear soluciones con IA sin programar, transformando su cultura de trabajo.",
       video: "/3.mp4",
       metrics: [
-        { value: "+200%", label: "Productividad" },
-        { value: "92%", label: "Confianza del Equipo" },
-        { value: "10h/sem", label: "Ahorradas" },
+        { value: "10 horas", label: "Ahorradas por persona" },
+        { value: "92%", label: "Confianza del equipo" },
+        { value: "200%", label: "Aumento productividad" },
       ],
       color: "yellow"
     }
   ];
 
-  // Variants correctamente tipadas
   const containerVariants: Variants = { 
     hidden: { opacity: 0 }, 
     visible: { 
@@ -123,7 +115,6 @@ const IAPowersImproved = () => {
 
   return (
     <section className="py-24 bg-black relative overflow-hidden">
-      {/* Fondo mejorado con más capas */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-cyan-500/10 blur-3xl animate-pulse-slow"></div>
         <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-3xl animate-pulse-slow delay-1000"></div>
@@ -138,39 +129,36 @@ const IAPowersImproved = () => {
           variants={containerVariants}
           className="max-w-7xl mx-auto"
         >
-          {/* Header mejorado - Consultoría World Class */}
           <motion.div 
             variants={cardVariants}
             className="text-center mb-20"
           >
-            {/* Badge de credibilidad */}
             <div className="inline-flex items-center justify-center gap-3 mb-6 px-6 py-2 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 border border-amber-500/20 rounded-full">
               <Award className="w-5 h-5 text-amber-400" />
-              <span className="text-amber-400 font-semibold text-sm">Metodología Probada en +50 Empresas Fortune 500</span>
+              <span className="text-amber-400 font-semibold text-sm">Transformación real para personas y empresas</span>
               <TrendingUp className="w-5 h-5 text-amber-400" />
             </div>
 
             <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
-              Transformación Empresarial
+              ¿Qué lugar ocupa la IA
               <br />
               <span className={`bg-gradient-to-r ${theme.textGradient} bg-clip-text text-transparent`}>
-                Impulsada por IA
+                en tu día a día?
               </span>
             </h2>
             
             <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
-              No vendemos tecnología. <span className="text-cyan-400 font-semibold">Entregamos superpoderes empresariales</span> que transforman tu operación en una máquina de crecimiento imparable.
+              No necesitas saber programar, necesitas saber aplicarla. <span className="text-cyan-400 font-semibold">Te ayudamos a integrar IA de forma práctica</span> para recuperar tiempo, crear mejor contenido y hacer crecer tu negocio.
             </p>
 
-            {/* Métricas de credibilidad */}
             <div className="flex flex-wrap justify-center gap-8 mt-12">
               <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">+300%</div>
-                <div className="text-sm text-gray-400">ROI Promedio</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">15 horas</div>
+                <div className="text-sm text-gray-400">Recuperadas por semana</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">72h</div>
-                <div className="text-sm text-gray-400">Implementación</div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">1 día</div>
+                <div className="text-sm text-gray-400">Para ver resultados</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">98%</div>
@@ -179,125 +167,74 @@ const IAPowersImproved = () => {
             </div>
           </motion.div>
           
-          {/* Grid de superpoderes mejorado */}
-          <div className="relative mb-24">
-            {/* Línea de conexión animada */}
-            <div className="hidden lg:block absolute top-1/2 left-0 w-full h-px -translate-y-1/2 z-0">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+            {targetAudiences.map((audience, index) => (
               <motion.div 
-                className="h-full bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                transition={{ duration: 2, delay: 0.5 }}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {superpowers.map((power, index) => (
-                <motion.div 
-                  key={index}
-                  variants={cardVariants}
-                  className="relative z-10"
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                key={index}
+                variants={cardVariants}
+                className="relative"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                <motion.div
+                  animate={{
+                    scale: hoveredIndex === index ? 1.02 : 1,
+                    y: hoveredIndex === index ? -8 : 0,
+                  }}
+                  transition={{ type: "spring" as const, stiffness: 300, damping: 30 }}
+                  className={`h-full w-full rounded-2xl border transition-all duration-500 ${
+                    hoveredIndex === index 
+                      ? `border-${audience.color}-400/50 shadow-2xl shadow-${audience.color}-500/20` 
+                      : 'border-white/10 shadow-xl shadow-black/20'
+                  }`}
                 >
-                  {/* Card principal con altura fija */}
-                  <div className="relative h-80 group">
-                    <motion.div
-                      animate={{
-                        scale: hoveredIndex === index ? 1.02 : 1,
-                        y: hoveredIndex === index ? -4 : 0,
-                      }}
-                      transition={{ type: "spring" as const, stiffness: 300, damping: 30 }}
-                      className={`h-full w-full rounded-2xl border transition-all duration-500 ${
-                        hoveredIndex === index 
-                          ? 'border-cyan-400/50 shadow-2xl shadow-cyan-500/20' 
-                          : 'border-white/10 shadow-xl shadow-black/20'
-                      }`}
-                    >
-                      <div className="h-full w-full bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl rounded-2xl p-6 flex flex-col">
-                        {/* Header de la card */}
-                        <div className="flex items-start gap-4 mb-4">
-                          <motion.div 
-                            animate={{ 
-                              scale: hoveredIndex === index ? 1.1 : 1,
-                              rotate: hoveredIndex === index ? 5 : 0 
-                            }}
-                            transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}
-                            className="flex-shrink-0 w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center"
-                          >
-                            {power.icon}
-                          </motion.div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-xs font-bold text-cyan-400 bg-cyan-400/10 px-2 py-1 rounded-full">
-                                NIVEL {power.level}
-                              </span>
-                            </div>
-                            <h3 className="text-lg font-bold text-white leading-tight">{power.title}</h3>
-                            <p className="text-sm text-cyan-400 font-medium">{power.subtitle}</p>
-                          </div>
-                        </div>
-
-                        {/* Métrica destacada */}
-                        <div className="mb-4 p-3 bg-black/30 rounded-lg border border-cyan-500/10">
-                          <div className="text-center">
-                            <div className="text-2xl font-bold text-cyan-400">{power.metrics.value}</div>
-                            <div className="text-xs text-gray-400">{power.metrics.label}</div>
-                          </div>
-                        </div>
-
-                        {/* Insight visible */}
-                        <p className="text-sm text-gray-300 italic flex-1 leading-relaxed">
-                          "{power.insight}"
-                        </p>
+                  <div className="h-full w-full bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl rounded-2xl p-8 flex flex-col">
+                    <div className="flex items-start gap-4 mb-6">
+                      <motion.div 
+                        animate={{ 
+                          scale: hoveredIndex === index ? 1.1 : 1,
+                          rotate: hoveredIndex === index ? 5 : 0 
+                        }}
+                        transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}
+                        className={`flex-shrink-0 w-16 h-16 rounded-xl bg-${audience.color}-500/10 border border-${audience.color}-500/20 flex items-center justify-center`}
+                      >
+                        {audience.icon}
+                      </motion.div>
+                      <div className="flex-1">
+                        <span className={`text-xs font-bold text-${audience.color}-400 bg-${audience.color}-400/10 px-3 py-1 rounded-full`}>
+                          {audience.subtitle}
+                        </span>
                       </div>
-                    </motion.div>
+                    </div>
 
-                    {/* Overlay expandible - NO afecta el layout */}
-                    <AnimatePresence>
-                      {hoveredIndex === index && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                          transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-                          className="absolute -top-4 -left-4 -right-4 z-20 pointer-events-none"
-                        >
-                          <div className="bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-xl rounded-2xl border border-cyan-400/30 shadow-2xl shadow-cyan-500/20 p-6">
-                            <div className="space-y-4">
-                              <div className="flex items-center gap-3 mb-4">
-                                <div className="w-10 h-10 rounded-lg bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center">
-                                  {power.icon}
-                                </div>
-                                <div>
-                                  <h4 className="text-lg font-bold text-white">{power.title}</h4>
-                                  <p className="text-sm text-cyan-400">{power.subtitle}</p>
-                                </div>
-                              </div>
-                              
-                              <div className="space-y-3 text-sm">
-                                <div className="p-3 bg-black/20 rounded-lg border border-cyan-500/10">
-                                  <p className="text-cyan-400 font-medium mb-1">Objetivo:</p>
-                                  <p className="text-gray-200 leading-relaxed">{power.objective}</p>
-                                </div>
-                                
-                                <div className="p-3 bg-black/20 rounded-lg border border-cyan-500/10">
-                                  <p className="text-cyan-400 font-medium mb-1">Beneficio:</p>
-                                  <p className="text-gray-200 leading-relaxed">{power.benefit}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    <h3 className="text-2xl font-bold text-white leading-tight mb-4">{audience.title}</h3>
+                    
+                    <p className="text-gray-300 leading-relaxed mb-6 flex-1">{audience.description}</p>
+
+                    <div className="mb-6 p-4 bg-black/30 rounded-lg border border-white/10">
+                      <p className="text-sm text-gray-300 mb-3"><span className="text-cyan-400 font-semibold">La solución:</span></p>
+                      <p className="text-sm text-gray-200 leading-relaxed">{audience.solution}</p>
+                    </div>
+
+                    <div className="mb-6 text-center p-4 bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 rounded-lg border border-cyan-500/20">
+                      <div className="text-2xl font-bold text-cyan-400">{audience.benefit}</div>
+                      <div className="text-xs text-gray-400">Resultado promedio</div>
+                    </div>
+
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full py-4 px-6 bg-gradient-to-r from-${audience.color}-500 to-${audience.color}-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-${audience.color}-500/25 transition-all duration-300 flex items-center justify-center gap-2`}
+                    >
+                      {audience.buttonText}
+                      <ArrowRight className="w-5 h-5" />
+                    </motion.button>
                   </div>
                 </motion.div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
 
-          {/* Sección Atlas Copilot - Mantenida igual */}
           <motion.div 
             variants={cardVariants}
             className="text-center mb-16"
@@ -307,10 +244,10 @@ const IAPowersImproved = () => {
               <span className="text-amber-400 font-semibold text-sm">Casos de Éxito Reales</span>
             </div>
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Superpoderes en Acción: <span className="bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Atlas Copilot</span>
+              Personas y Empresas que ya Transformaron su Trabajo
             </h3>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-              Así se ven estos conceptos abstractos convertidos en soluciones reales que ya están transformando negocios como el tuyo.
+              Estos son ejemplos reales de cómo la IA está transformando negocios y vidas de personas que, como tú, decidieron dar el primer paso hacia la transformación.
             </p>
           </motion.div>
 
