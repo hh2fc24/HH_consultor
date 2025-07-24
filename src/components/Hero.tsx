@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -30,7 +29,6 @@ const useTypewriter = (text: string, speed: number = 50) => {
 
   return typedText;
 };
-
 
 export default function HeroSectionNeuro() {
   const heroRef = useRef<HTMLElement>(null);
@@ -65,18 +63,10 @@ export default function HeroSectionNeuro() {
     }
   };
   
+  // MENSAJE UNIFICADO - Headlines coherentes con el tema central
   const animatedHeadlines = [
     {
       id: 1,
-      parts: [
-        { text: "Ese proyecto que " },
-        { text: "nunca empezaste", highlight: true },
-        { text: ", esos " },
-        { text: "clientes que se te escapan.", highlight: true },
-      ]
-    },
-    {
-      id: 2,
       parts: [
         { text: "Automatiza " },
         { text: "lo que te consume horas", highlight: true },
@@ -85,20 +75,29 @@ export default function HeroSectionNeuro() {
       ]
     },
     {
+      id: 2,
+      parts: [
+        { text: "Mientras otros hacen " },
+        { text: "todo manual,", highlight: true },
+        { text: " tú puedes " },
+        { text: "automatizar en 7 días.", highlight: true },
+      ]
+    },
+    {
       id: 3,
       parts: [
-        { text: "Convierte " },
-        { text: "ideas en ingresos,", highlight: true },
-        { text: " transforma " },
-        { text: "tu conocimiento en un negocio.", highlight: true },
+        { text: "Transforma " },
+        { text: "procesos repetitivos", highlight: true },
+        { text: " en " },
+        { text: "tiempo para lo importante.", highlight: true },
       ]
     },
   ];
   
   const notifications = [
-    { name: "Carlos M.", action: "ahora atiende el doble de clientes", time: "hace 12 min" },
-    { name: "Roberto S.", action: "automatizó lo que le tomaba 3 horas diarias", time: "hace 15 min" },
-    { name: "Ana P.", action: "creó su primer bot y duplicó consultas", time: "hace 6 min" }
+    { name: "Carlos M.", action: "automatizó su gestión de clientes", time: "hace 12 min" },
+    { name: "Roberto S.", action: "recuperó 15 horas semanales", time: "hace 15 min" },
+    { name: "Ana P.", action: "duplicó su productividad", time: "hace 6 min" }
   ];
 
   const fullTextToType = animatedHeadlines[currentHeadlineIndex].parts.map(p => p.text).join("");
@@ -211,7 +210,7 @@ export default function HeroSectionNeuro() {
           <div className="max-w-5xl mx-auto text-left relative">
             <motion.div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full bg-[#00E5FF]/15 border border-[#00E5FF]/25">
               <div className="w-2 h-2 bg-[#00E5FF] rounded-full animate-pulse" />
-              <span className="text-xs text-white/80 font-medium">Lo que siempre quisiste hacer, ahora es posible</span>
+              <span className="text-xs text-white/80 font-medium">Sin programar, sin complicaciones técnicas</span>
             </motion.div>
             <h1 className="text-3xl sm:text-4xl font-bold text-white/95 leading-snug mb-6 min-h-[110px] sm:min-h-[128px]">
               {renderTypedHeadline()}
@@ -220,12 +219,11 @@ export default function HeroSectionNeuro() {
               )}
             </h1>
             <p className="text-base text-white/90 mb-8 max-w-2xl leading-relaxed">
-              Mientras sigues haciendo todo a mano, otros ya automatizaron lo que les tomaba horas. 
-              Crearon sus bots, lanzaron sus páginas, multiplicaron sus ingresos. 
-              La diferencia no es el talento. Es saber qué hacer con la IA.
+              No necesitas saber programar ni ser un experto en tecnología. 
+              Te enseño a automatizar procesos paso a paso, con herramientas simples 
+              que puedes implementar desde el primer día.
             </p>
             
-            {/* --- BOTONES Y CTAS RESTAURADOS --- */}
             <motion.div
               className="flex flex-wrap items-center gap-4 mb-8"
               initial={{ opacity: 0, y: 10 }}
@@ -239,17 +237,17 @@ export default function HeroSectionNeuro() {
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="relative z-10">
-                  Quiero Dejar de Perder Oportunidades
+                  Quiero Recuperar Mi Tiempo
                   <span className="block text-xs opacity-80 font-normal">Conversación sin compromiso</span>
                 </span>
               </motion.a>
               <motion.a
-                href="#casos"
+                href="#casos-de-exito"
                 className="group text-white/90 hover:text-white text-sm transition-all duration-300 relative"
                 whileHover={{ x: 5 }}
               >
                 <span className="border-b border-white/30 group-hover:border-[#00E5FF] pb-1 transition-colors duration-300">
-                  Ver qué están haciendo otros
+                  Ver cómo otros recuperaron su tiempo
                 </span>
                 <motion.span
                   className="inline-block ml-1"
@@ -261,7 +259,6 @@ export default function HeroSectionNeuro() {
               </motion.a>
             </motion.div>
 
-            {/* --- INDICADORES INFERIORES RESTAURADOS --- */}
             <motion.div
               className="flex flex-wrap items-center gap-8 text-xs text-white/60"
               initial={{ opacity: 0 }}
@@ -269,9 +266,9 @@ export default function HeroSectionNeuro() {
               transition={{ delay: 1 }}
             >
               {[
-                { metric: '1,247', label: 'ya no hacen todo manual' },
+                { metric: '1,247', label: 'personas ya automatizaron' },
                 { metric: '15h', label: 'recuperadas cada semana' },
-                { metric: '7 días', label: 'para ver el cambio' }
+                { metric: '7 días', label: 'para ver resultados' }
               ].map((item, index) => (
                 <motion.div
                   key={item.label}

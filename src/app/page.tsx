@@ -1,61 +1,56 @@
-// src/app/page.tsx
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/Hero';
+import IAForBeginners from '@/components/IAForBeginners';
 import BioManifesto from '@/components/BioManifesto';
 import AutomationShowcase from '@/components/AutomationShowcase';
-import IAPowers from '@/components/IAPowers';
 import ResultsShowcase from '@/components/ResultsShowcase';
-import EngagementPathways from '@/components/EngagementPathways';
+import IARoutes from '@/components/IARoutes';
 import FAQ from '@/components/FAQ';
 import ConsultationCTA from '@/components/ConsultationCTA';
 import Footer from '@/components/Footer';
-
-// --- 1. Importamos el nuevo componente que creamos ---
-import LearningEcosystem from '@/components/LearningEcosystem';
-
+import FormativeSection from '@/components/FormativeSection'; // <- NUEVO
 
 export default function HomePage() {
   return (
     <main className="relative w-full bg-black">
       <Navbar />
-      
-      {/* Fase 1: La Conexión (El Hook Inicial) */}
+
+      {/* Fase 1: La Conexión */}
       <section id="inicio">
         <HeroSection />
       </section>
-      
-      {/* Fase 2: El Estratega (Autoridad y Confianza) */}
+
+      {/* Fase 2: Educación base */}
+      <section id="ia-para-principiantes">
+        <IAForBeginners />
+      </section>
+
+      {/* Fase 3: Autoridad y Storytelling */}
       <section id="sobre-mi">
         <BioManifesto />
       </section>
 
-      {/* --- 2. AQUÍ INTEgramos LA NUEVA SECCIÓN --- */}
-      {/* Fase 3: El Ecosistema (La Oferta Formativa) */}
-      <section id="ecosistema-aprendizaje">
-        <LearningEcosystem />
-      </section>
-
-      {/* Fase 4: El Arsenal (Capacidad Técnica) - Renumerado */}
+      {/* Fase 4: Arsenal técnico */}
       <section id="ecosistema-tecnico">
         <AutomationShowcase />
       </section>
-      
-      {/* Fase 5: Los Superpoderes (Propuesta de Valor y Soluciones) - Renumerado */}
-      <section id="superpoderes">
-        <IAPowers />
+
+      {/* Fase 5 y 6: Soluciones + Rutas de colaboración */}
+      <section id="rutas-ia">
+        <IARoutes />
       </section>
 
-      {/* Fase 6: La Evidencia (Prueba Social y Resultados) - Renumerado */}
+      {/* Fase 6.5: Formación aplicada */}
+      <section id="formacion">
+        <FormativeSection />
+      </section>
+
+      {/* Fase 7: Casos reales */}
       <section id="casos-de-exito">
         <ResultsShowcase />
       </section>
 
-      {/* Fase 7: El Camino (Las Vías de Colaboración) - Renumerado */}
-      <section id="comienza-aqui">
-        <EngagementPathways />
-      </section>
-
-      {/* Fase 8: La Decisión (Cierre y Siguiente Paso) - Renumerado */}
+      {/* Fase 8: Cierre y conversión */}
       <section id="faq">
         <FAQ />
       </section>

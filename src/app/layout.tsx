@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import CanvasSpotlight from "@/components/CanvasSpotlight";
-import FloatingLogo from "@/components/FloatingLogo"; // <-- 1. Importa el logo flotante
+import FloatingLogo from "@/components/FloatingLogo";
+import FloatingChatWidget from "@/components/FloatingChatWidget"; // <-- NUEVO: Widget de chat
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,7 +37,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${poppins.variable} ${jetBrains_Mono.variable} antialiased text-white bg-black`}
       >
-        <FloatingLogo /> {/* <-- 2. Añade el componente aquí */}
+        <FloatingLogo />
+        <FloatingChatWidget /> {/* <-- NUEVO: Chat flotante con glassmorphism */}
         
         <div style={{ position: 'relative', zIndex: 1 }}>
           {children}

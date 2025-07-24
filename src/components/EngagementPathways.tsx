@@ -5,7 +5,8 @@ import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { 
     Users, Award, ArrowRight, Sparkles, X, Video, BookOpen, 
     MessageSquare, Zap, Calendar, LockKeyhole, Building, 
-    BrainCircuit, CheckCircle, Star, TrendingUp, Shield
+    BrainCircuit, CheckCircle, Star, TrendingUp, Shield, 
+    Play, Clock, Lightbulb
 } from 'lucide-react';
 
 // Interfaces TypeScript
@@ -128,8 +129,8 @@ const ClubModal: React.FC<ClubModalProps> = ({ isOpen, onClose }) => {
                   <Star className="w-5 h-5 text-purple-400" />
                   <span className="text-purple-400 font-semibold text-sm">Membresía Exclusiva</span>
                 </div>
-                <h2 className="text-4xl font-bold text-white mb-3">Altius Ignite Club</h2>
-                <p className="text-xl text-purple-300 font-medium">Tu Ecosistema de Aprendizaje Continuo en IA</p>
+                <h2 className="text-3xl font-bold text-white mb-3">Altius Ignite Club</h2>
+                <p className="text-lg text-purple-300 font-medium">Tu Ecosistema de Aprendizaje Continuo en IA</p>
               </div>
 
               {/* Contenido Principal */}
@@ -137,11 +138,11 @@ const ClubModal: React.FC<ClubModalProps> = ({ isOpen, onClose }) => {
                 {/* Descripción */}
                 <div className="lg:col-span-2 space-y-6">
                   <div>
-                    <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
                       <TrendingUp className="w-6 h-6 text-purple-400" />
                       ¿Por qué unirte?
                     </h3>
-                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                    <p className="text-gray-300 leading-relaxed mb-6">
                       La IA evoluciona a diario. El Club es tu acceso directo y constante a conocimiento curado, 
                       implementaciones reales y una red de profesionales con tus mismos desafíos.
                     </p>
@@ -175,8 +176,8 @@ const ClubModal: React.FC<ClubModalProps> = ({ isOpen, onClose }) => {
                       </div>
                       <p className="text-gray-400 text-sm mb-2">Membresía Mensual</p>
                       <div className="mb-4">
-                        <span className="text-5xl font-bold text-white">$10</span>
-                        <span className="text-xl text-gray-400">/mes</span>
+                        <span className="text-4xl font-bold text-white">$10</span>
+                        <span className="text-lg text-gray-400">/mes</span>
                       </div>
                       <p className="text-xs text-gray-500 mb-6">Cancela en cualquier momento</p>
                       <motion.a 
@@ -195,7 +196,7 @@ const ClubModal: React.FC<ClubModalProps> = ({ isOpen, onClose }) => {
 
               {/* Beneficios Grid */}
               <div>
-                <h3 className="text-2xl font-bold text-white text-center mb-8">
+                <h3 className="text-xl font-bold text-white text-center mb-8">
                   Qué Incluye Tu Membresía
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -211,7 +212,7 @@ const ClubModal: React.FC<ClubModalProps> = ({ isOpen, onClose }) => {
                       <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
                         {benefit.icon}
                       </div>
-                      <h4 className="font-bold text-white mb-2 text-lg">{benefit.title}</h4>
+                      <h4 className="font-bold text-white mb-2">{benefit.title}</h4>
                       <p className="text-sm text-gray-400 leading-relaxed">{benefit.description}</p>
                     </motion.div>
                   ))}
@@ -272,7 +273,8 @@ const EngagementPathways: React.FC = () => {
 
   const theme = { 
     gradient: 'bg-gradient-to-r from-cyan-400 to-indigo-500',
-    purpleGradient: 'bg-gradient-to-r from-purple-500 to-indigo-500'
+    purpleGradient: 'bg-gradient-to-r from-purple-500 to-indigo-500',
+    greenGradient: 'bg-gradient-to-r from-green-400 to-cyan-500'
   };
 
   return (
@@ -304,44 +306,135 @@ const EngagementPathways: React.FC = () => {
                 <TrendingUp className="w-5 h-5 text-cyan-400" />
               </div>
               
-              <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight leading-tight">
-                ¿Buscas transformar tu empresa
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
+                Elige tu camino hacia
                 <br />
                 <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-                  o potenciar tus habilidades?
+                  la automatización inteligente
                 </span>
               </h2>
               
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                He creado dos caminos distintos, uno para los <span className="text-cyan-400 font-semibold">arquitectos de negocios</span> y otro para los <span className="text-purple-400 font-semibold">pioneros de la IA</span>. Elige tu identidad.
+              <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                Desde principiantes absolutos hasta empresas que buscan transformación completa. 
+                Tengo el camino perfecto para tu nivel y objetivos.
               </p>
 
               {/* Métricas de credibilidad */}
               <div className="flex flex-wrap justify-center gap-8 mt-12">
                 <div className="text-center">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">+500</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">+500</div>
                   <div className="text-sm text-gray-400">Empresas Transformadas</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">98%</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">98%</div>
                   <div className="text-sm text-gray-400">Satisfacción Cliente</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">24/7</div>
+                  <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">24/7</div>
                   <div className="text-sm text-gray-400">Soporte Premium</div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Cards Grid Mejorado */}
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-7xl mx-auto">
+            {/* Cards Grid Mejorado con 3 opciones */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-7xl mx-auto">
               
-              {/* Opción 1: Alianza Estratégica (DOMINANTE) */}
+              {/* NUEVA OPCIÓN: IA Starter (Para Principiantes) */}
               <motion.div
                 variants={cardVariants}
-                className="lg:col-span-3 group relative rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl overflow-hidden"
+                className="lg:col-span-4 group relative rounded-3xl border border-green-500/20 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl overflow-hidden"
                 ref={(el) => { cardsRef.current[0] = el; }}
                 onMouseMove={(e) => handleMouseMove(e, 0)}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
+              >
+                {/* Glow effect */}
+                <div 
+                  className="absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" 
+                  style={{ 
+                    background: `radial-gradient(500px circle at var(--mouse-x) var(--mouse-y), rgba(34, 197, 94, 0.15), transparent 80%)`
+                  }}
+                />
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent rounded-3xl"></div>
+                
+                <div className="relative z-10 p-8">
+                  {/* Badge */}
+                  <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 bg-gradient-to-r from-green-500/20 to-cyan-500/20 border border-green-500/30 rounded-full">
+                    <Play className="w-5 h-5 text-green-400" />
+                    <span className="text-green-400 font-bold text-sm">PARA PRINCIPIANTES</span>
+                  </div>
+
+                  {/* Header */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <motion.div 
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-cyan-500/20 border border-green-500/30 flex items-center justify-center"
+                    >
+                      <Lightbulb className="w-7 h-7 text-green-400" />
+                    </motion.div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-1">IA Starter</h3>
+                      <p className="text-green-400 font-semibold">Tu Primera Automatización</p>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 leading-relaxed mb-6">
+                    Perfecto si nunca has usado IA. En <span className="text-white font-semibold">2 horas</span> 
+                    implementas tu primera automatización y ves resultados inmediatos.
+                  </p>
+
+                  {/* Features */}
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-start gap-3 p-3 bg-black/20 rounded-lg border border-green-500/10">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="text-white font-semibold text-sm">Conceptos básicos sin jerga</h4>
+                        <p className="text-gray-400 text-xs">Explicaciones simples y claras</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3 p-3 bg-black/20 rounded-lg border border-green-500/10">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="text-white font-semibold text-sm">Tu primera automatización en vivo</h4>
+                        <p className="text-gray-400 text-xs">Implementamos juntos paso a paso</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3 p-3 bg-black/20 rounded-lg border border-green-500/10">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="text-white font-semibold text-sm">Plan personalizado de 30 días</h4>
+                        <p className="text-gray-400 text-xs">Roadmap específico para tu caso</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Precio */}
+                  <div className="text-center mb-6">
+                    <div className="text-3xl font-bold text-white">$97</div>
+                    <div className="text-sm text-gray-400">Sesión única de 2 horas</div>
+                  </div>
+
+                  {/* CTA */}
+                  <motion.a 
+                    href="https://wa.me/59177028880" 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`inline-flex items-center justify-center gap-3 w-full py-4 ${theme.greenGradient} text-white font-bold rounded-xl shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300`}
+                  >
+                    <span>Comenzar Ahora</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.a>
+                </div>
+              </motion.div>
+
+              {/* Opción 2: Alianza Estratégica (DOMINANTE) */}
+              <motion.div
+                variants={cardVariants}
+                className="lg:col-span-5 group relative rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl overflow-hidden"
+                ref={(el) => { cardsRef.current[1] = el; }}
+                onMouseMove={(e) => handleMouseMove(e, 1)}
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
               >
@@ -356,11 +449,11 @@ const EngagementPathways: React.FC = () => {
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-3xl"></div>
                 
-                <div className="relative z-10 p-8 lg:p-10">
+                <div className="relative z-10 p-8">
                   {/* Badge */}
                   <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 border border-cyan-500/30 rounded-full">
                     <Building className="w-5 h-5 text-cyan-400" />
-                    <span className="text-cyan-400 font-bold text-sm">PARA ARQUITECTOS DE NEGOCIOS</span>
+                    <span className="text-cyan-400 font-bold text-sm">PARA EMPRESAS</span>
                   </div>
 
                   {/* Header */}
@@ -372,14 +465,14 @@ const EngagementPathways: React.FC = () => {
                       <Building className="w-8 h-8 text-cyan-400" />
                     </motion.div>
                     <div>
-                      <h3 className="text-3xl lg:text-4xl font-bold text-white mb-2">Alianza Estratégica</h3>
+                      <h3 className="text-3xl font-bold text-white mb-2">Alianza Estratégica</h3>
                       <p className="text-cyan-400 font-semibold text-lg">Transformación End-to-End</p>
                     </div>
                   </div>
 
                   <p className="text-gray-300 text-lg leading-relaxed mb-8">
                     Nos enfocamos en el <span className="text-white font-semibold">resultado de negocio</span>, no en la tecnología. 
-                    Co-creamos una solución a medida para generar un <span className="text-cyan-400 font-semibold">ROI medible</span> y transformar tu operación.
+                    Co-creamos una solución a medida para generar un <span className="text-cyan-400 font-semibold">ROI medible</span>.
                   </p>
 
                   {/* Features */}
@@ -394,15 +487,8 @@ const EngagementPathways: React.FC = () => {
                     <div className="flex items-start gap-4 p-4 bg-black/20 rounded-xl border border-cyan-500/10 hover:border-cyan-500/20 transition-all duration-300">
                       <CheckCircle className="w-6 h-6 text-cyan-400 mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="text-white font-semibold mb-1">Implementación End-to-End</h4>
-                        <p className="text-gray-300 text-sm">Nos encargamos de todo, del diagnóstico al despliegue y adopción.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4 p-4 bg-black/20 rounded-xl border border-cyan-500/10 hover:border-cyan-500/20 transition-all duration-300">
-                      <CheckCircle className="w-6 h-6 text-cyan-400 mt-1 flex-shrink-0" />
-                      <div>
-                        <h4 className="text-white font-semibold mb-1">Empoderamiento de tu Equipo</h4>
-                        <p className="text-gray-300 text-sm">Garantizamos la adopción y el éxito a largo plazo con formación incluida.</p>
+                        <h4 className="text-white font-semibold mb-1">Implementación Completa</h4>
+                        <p className="text-gray-300 text-sm">Del diagnóstico al despliegue y adopción exitosa.</p>
                       </div>
                     </div>
                   </div>
@@ -420,12 +506,12 @@ const EngagementPathways: React.FC = () => {
                 </div>
               </motion.div>
 
-              {/* Opción 2: Altius Ignite Club (SECUNDARIA) */}
+              {/* Opción 3: Altius Ignite Club */}
               <motion.div
                 variants={cardVariants}
-                className="lg:col-span-2 group relative rounded-3xl border border-purple-500/20 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl overflow-hidden"
-                ref={(el) => { cardsRef.current[1] = el; }}
-                onMouseMove={(e) => handleMouseMove(e, 1)}
+                className="lg:col-span-3 group relative rounded-3xl border border-purple-500/20 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-xl overflow-hidden"
+                ref={(el) => { cardsRef.current[2] = el; }}
+                onMouseMove={(e) => handleMouseMove(e, 2)}
                 whileHover={{ y: -8, scale: 1.02 }}
                 transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
               >
@@ -444,7 +530,7 @@ const EngagementPathways: React.FC = () => {
                   {/* Badge */}
                   <div className="inline-flex items-center justify-center gap-2 mb-6 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 border border-purple-500/30 rounded-full">
                     <BrainCircuit className="w-5 h-5 text-purple-400" />
-                    <span className="text-purple-400 font-bold text-sm">PARA PIONEROS DE IA</span>
+                    <span className="text-purple-400 font-bold text-sm">PARA PROFESIONALES</span>
                   </div>
 
                   {/* Header */}
@@ -456,32 +542,37 @@ const EngagementPathways: React.FC = () => {
                       <BrainCircuit className="w-7 h-7 text-purple-400" />
                     </motion.div>
                     <div>
-                      <h3 className="text-2xl lg:text-3xl font-bold text-white mb-1">Altius Ignite Club</h3>
+                      <h3 className="text-2xl font-bold text-white mb-1">Ignite Club</h3>
                       <p className="text-purple-400 font-semibold">Comunidad Elite</p>
                     </div>
                   </div>
 
                   <p className="text-gray-300 leading-relaxed mb-6">
-                    Nos enfocamos en la <span className="text-white font-semibold">habilidad y la comunidad</span>. 
-                    Te unes a una red de vanguardia para dominar la IA por ti mismo y mantenerte siempre relevante.
+                    Red de vanguardia para dominar la IA por ti mismo y mantenerte siempre relevante.
                   </p>
 
                   {/* Features */}
-                  <div className="space-y-3 mb-8">
+                  <div className="space-y-3 mb-6">
                     <div className="flex items-start gap-3 p-3 bg-black/20 rounded-lg border border-purple-500/10">
                       <CheckCircle className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="text-white font-semibold text-sm">Aprendizaje Continuo</h4>
-                        <p className="text-gray-400 text-xs">Masterclasses y recursos actualizados semanalmente.</p>
+                        <h4 className="text-white font-semibold text-sm">Masterclasses semanales</h4>
+                        <p className="text-gray-400 text-xs">Contenido actualizado constantemente</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3 p-3 bg-black/20 rounded-lg border border-purple-500/10">
                       <CheckCircle className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="text-white font-semibold text-sm">Red de Contactos Elite</h4>
-                        <p className="text-gray-400 text-xs">Conecta con otros profesionales y pioneros de IA.</p>
+                        <h4 className="text-white font-semibold text-sm">Red de contactos elite</h4>
+                        <p className="text-gray-400 text-xs">Conecta con otros pioneros</p>
                       </div>
                     </div>
+                  </div>
+
+                  {/* Precio */}
+                  <div className="text-center mb-6">
+                    <div className="text-3xl font-bold text-white">$10</div>
+                    <div className="text-sm text-gray-400">por mes</div>
                   </div>
 
                   {/* CTA */}
@@ -491,7 +582,7 @@ const EngagementPathways: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center justify-center gap-3 w-full py-4 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 border border-purple-500/30 text-white font-bold rounded-xl hover:from-purple-500/30 hover:to-indigo-500/30 transition-all duration-300"
                   >
-                    <span>Ver Beneficios del Club</span>
+                    <span>Ver Beneficios</span>
                     <ArrowRight className="w-5 h-5" />
                   </motion.button>
                 </div>
