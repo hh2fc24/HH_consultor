@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai'; // ✅ Correcta para Vercel + TS
+import OpenAI from 'openai';
 
-// ✅ Validación de API Key (dev & prod)
 if (!process.env.OPENAI_API_KEY) {
   console.error("❌ Falta OPENAI_API_KEY en entorno");
 }
@@ -14,11 +13,20 @@ export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json();
 
-    // 🧹 Limpieza de mensajes repetidos o poco útiles
     const sanitizedMessages = messages.filter((m: any) =>
       !m.content.toLowerCase().includes("excelente pregunta sobre") &&
       !m.content.toLowerCase().includes("perfecto análisis")
     );
+
+    const lastMessage = sanitizedMessages.at(-1)?.content.toLowerCase();
+
+    // 🛑 Evita CTA duplicado si ya es una despedida
+    const closingKeywords = ["gracias", "ok", "listo", "perfecto", "entendido", "vale", "de nada"];
+    if (lastMessage && closingKeywords.some((kw) => lastMessage.includes(kw))) {
+      return NextResponse.json({
+        reply: "¡De nada! Aquí estaré si necesitas algo más 💡",
+      });
+    }
 
     const systemPrompt = `
 Eres "Atlas", la extensión digital de Hugo Hormazábal, consultor estratégico en IA. Encarnas la excelencia de una consultoría de élite: McKinsey meets Silicon Valley.
