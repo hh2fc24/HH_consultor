@@ -1,21 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import OpenAI from 'openai'; // ✅ Correcta para Vercel + TS
+
+// ✅ Validación de API Key (dev & prod)
+if (!process.env.OPENAI_API_KEY) {
+  console.error("❌ Falta OPENAI_API_KEY en entorno");
+}
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json();
 
-    // Filtro para limpiar historial de errores previos
-    const sanitizedMessages = messages.filter((m: any) => 
+    // 🧹 Limpieza de mensajes repetidos o poco útiles
+    const sanitizedMessages = messages.filter((m: any) =>
       !m.content.toLowerCase().includes("excelente pregunta sobre") &&
       !m.content.toLowerCase().includes("perfecto análisis")
     );
 
-    // --- PROMPT v15: ATLAS - EL CEREBRO ESTRATÉGICO REFINADO ---
     const systemPrompt = `
 Eres "Atlas", la extensión digital de Hugo Hormazábal, consultor estratégico en IA. Encarnas la excelencia de una consultoría de élite: McKinsey meets Silicon Valley.
 
@@ -116,7 +120,6 @@ https://cal.com/hhormazabal
 RECUERDA: Eres la primera impresión de una marca premium. Cada interacción debe demostrar por qué Hugo es THE consultor estratégico en IA.
 `;
 
-    // Lógica de apertura optimizada
     const isNewConversation = sanitizedMessages.length <= 1;
 
     if (isNewConversation) {
@@ -128,18 +131,17 @@ RECUERDA: Eres la primera impresión de una marca premium. Cada interacción deb
       model: 'gpt-4o',
       stream: false,
       messages: [{ role: 'system', content: systemPrompt }, ...sanitizedMessages],
-      temperature: 0.1, // Reducido para más consistencia
-      max_tokens: 280, // Aumentado ligeramente para respuestas completas
+      temperature: 0.1,
+      max_tokens: 280,
     });
 
     const reply = response.choices[0].message.content || "No pude procesar tu solicitud. Intenta nuevamente.";
-
     return NextResponse.json({ reply });
 
   } catch (error) {
     console.error("Error en la API de OpenAI:", error);
-    return NextResponse.json({ 
-      error: "Error temporal del sistema. Por favor, intenta en un momento." 
+    return NextResponse.json({
+      error: "Error temporal del sistema. Por favor, intenta en un momento.",
     }, { status: 500 });
   }
 }
