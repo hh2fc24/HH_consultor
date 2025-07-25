@@ -16,16 +16,21 @@ const ResultsShowcase = () => {
   ];
 
   const testimonials = [
-     {
-      quote: "Trabajar con Hugo fue el punto de inflexión. En 3 meses implementamos soluciones de IA que nos ahorran $20k mensuales.",
-      author: "Equipo Directivo Retail Financiero",
-      company: "Cencosud Scotiabank",
+    {
+      quote: "Gracias al trabajo con Hugo, hoy tenemos procesos de admisión más ágiles y dashboards que facilitan la toma de decisiones en tiempo real. Un antes y un después en nuestra operación diaria.",
+      author: "David Cantillana",
+      company: "Subdirector de Admisión, UDLA",
     },
     {
-      quote: "La metodología de Hugo nos permitió identificar oportunidades que no veíamos. Ahora nuestro equipo es 40% más productivo.",
-      author: "Director de Operaciones",
-      company: "Tenpo",
-    }
+      quote: "Atlas Copilot transformó mi consulta. Desde la ficha clínica hasta la gestión de pacientes, todo fluye con inteligencia. Es como tener un asistente experto las 24 horas.",
+      author: "Dra. Raquel Arévalo",
+      company: "Odontóloga, Santa Cruz de la Sierra",
+    },
+    {
+      quote: "Automatizamos la captación de leads con IA y el cambio fue inmediato. Ahora llegamos antes, mejor y con menos esfuerzo. Es una ventaja competitiva real.",
+      author: "Miguel Saavedra",
+      company: "Líder de Ventas",
+    },
   ];
 
   useEffect(() => {
