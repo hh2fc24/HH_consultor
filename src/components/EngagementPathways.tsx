@@ -158,7 +158,7 @@ const ClubModal: React.FC<ClubModalProps> = ({ isOpen, onClose }) => {
                         <Users className="w-6 h-6 text-purple-400 mt-1 flex-shrink-0" />
                         <div>
                           <h4 className="text-white font-semibold mb-1">Red de Profesionales Elite</h4>
-                          <p className="text-gray-300 text-sm">Conecta con líderes de IA de empresas Fortune 500.</p>
+                          <p className="text-gray-300 text-sm">Conecta con líderes de IA en Chile, Brasil y Bolivia.</p>
                         </div>
                       </div>
                     </div>

@@ -41,7 +41,7 @@ const FAQ = () => {
     {
       icon: <MessageCircle className="w-5 h-5 text-indigo-400" />,
       question: "¿Qué diferencia a Altius Ignite de otros consultores de IA?",
-      answer: "La diferencia está en mi enfoque profundamente humano y mi metodología probada. Mientras otros se enfocan en la tecnología, yo me enfoco en el impacto. Mi experiencia combinada en ventas consultivas, análisis económico, y liderazgo en Fortune 500 me permite entender tanto el lado técnico como el estratégico. Además, mi compromiso es con resultados medibles: no cobro por horas de consultoría, sino por valor entregado.",
+      answer: "La diferencia está en mi enfoque profundamente humano y mi metodología probada. Mientras otros se enfocan en la tecnología, yo me enfoco en el impacto. Mi experiencia combinada en ventas consultivas, análisis económico, y liderazgo me permite entender tanto el lado técnico como el estratégico. Además, mi compromiso es con resultados medibles: no cobro por horas de consultoría, sino por valor entregado.",
       category: "Diferenciación"
     }
   ];
