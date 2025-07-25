@@ -1,12 +1,14 @@
-
 // src/components/ConsultationCTA.tsx
 'use client';
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
+import { useChatStore } from '@/store/chatStore'; // << 1. IMPORTACIÓN DEL STORE
 
 const ConsultationCTA = () => {
+  const { openChat } = useChatStore(); // << 2. USO DEL HOOK
+  
   const theme = {
     gradient: 'bg-gradient-to-r from-cyan-400 to-indigo-500',
     textGradient: 'from-cyan-400 to-indigo-500',
@@ -61,16 +63,17 @@ const ConsultationCTA = () => {
                   </li>
                 </ul>
 
-                <motion.a
-                  href="https://wa.me/59177028880?text=Hola,%20Hugo.%20Quisiera%20agendar%20mi%20Sesión%20Estratégica%20de%20IA."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                {/* vvv 3. BOTÓN MODIFICADO vvv */}
+                <motion.button
+                  onClick={openChat}
+                  type="button"
                   whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(0, 229, 255, 0.2)' }}
                   className={`inline-flex items-center gap-3 px-8 py-4 ${theme.gradient} rounded-lg text-white font-bold text-lg shadow-lg hover:shadow-cyan-500/30 transition-all duration-300`}
                 >
                   <span>Solicitar mi Sesión Estratégica</span>
                   <ArrowRight className="w-5 h-5" />
-                </motion.a>
+                </motion.button>
+                {/* ^^^ FIN DE LA MODIFICACIÓN ^^^ */}
 
                 <div className="mt-8">
                   <p className="text-sm font-semibold text-green-400">Mi Garantía de Poder:</p>
@@ -86,8 +89,8 @@ const ConsultationCTA = () => {
               <Image
                 src="/HHweb.svg" // <-- Tu foto profesional aquí
                 alt="Hugo Hormazábal - Consultor Estratégico en IA"
-                layout="fill"
-                objectFit="cover"
+                fill={true}
+                style={{objectFit: 'cover'}}
                 className="opacity-20"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/50 to-transparent lg:bg-gradient-to-l lg:from-gray-900/80 lg:via-gray-900/50 lg:to-transparent"></div>

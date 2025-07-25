@@ -1,8 +1,10 @@
+
 'use client'
 
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Clock, Users, Target, Zap, Brain, Rocket, Eye, Play, ArrowRight, X, ChevronRight, Heart } from 'lucide-react'
+import { useChatStore } from '@/store/chatStore' // << IMPORTACIÓN DEL STORE
 
 // --- DATOS ---
 interface Formation {
@@ -143,6 +145,7 @@ const routes: Route[] = [
 ];
 
 const FormationCard: React.FC<{ formation: Formation }> = ({ formation }) => {
+  const { openChat } = useChatStore(); // << USO DEL HOOK
   const IconComponent = formation.icon
   
   return (
@@ -154,10 +157,8 @@ const FormationCard: React.FC<{ formation: Formation }> = ({ formation }) => {
       whileHover={{ y: -8, transition: { duration: 0.3 } }}
       className="group relative bg-gradient-to-br from-slate-900/80 to-slate-950/90 backdrop-blur-sm border border-slate-800/50 rounded-3xl p-8 flex flex-col overflow-hidden hover:border-blue-500/30 transition-all duration-500"
     >
-      {/* Efecto de brillo sutil */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
-      {/* Header con icono y tipo */}
       <div className="relative z-10 flex items-start justify-between mb-6">
         <div className="flex items-center gap-4">
           <div className="relative">
@@ -172,12 +173,10 @@ const FormationCard: React.FC<{ formation: Formation }> = ({ formation }) => {
         </span>
       </div>
 
-      {/* Título */}
       <h3 className="relative z-10 text-xl font-bold text-slate-100 leading-tight mb-4 group-hover:text-white transition-colors duration-300">
         {formation.title}
       </h3>
 
-      {/* Problema (quote) */}
       <div className="relative z-10 mb-6">
         <div className="border-l-2 border-blue-500/30 pl-4">
           <p className="text-sm text-slate-400 italic leading-relaxed">
@@ -186,12 +185,10 @@ const FormationCard: React.FC<{ formation: Formation }> = ({ formation }) => {
         </div>
       </div>
 
-      {/* Promesa */}
       <p className="relative z-10 text-slate-300 text-sm leading-relaxed mb-8 flex-grow">
         {formation.promise}
       </p>
 
-      {/* Detalles */}
       <div className="relative z-10 space-y-4 mb-8">
         <div className="flex items-center gap-3 text-sm">
           <div className="flex-shrink-0 w-8 h-8 bg-slate-800/50 rounded-xl flex items-center justify-center border border-slate-700/50">
@@ -224,8 +221,10 @@ const FormationCard: React.FC<{ formation: Formation }> = ({ formation }) => {
         </div>
       </div>
 
-      {/* CTA Button */}
+      {/* vvv BOTÓN MODIFICADO vvv */}
       <motion.button
+        onClick={openChat}
+        type="button"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className="relative z-10 w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold py-4 px-6 rounded-2xl text-sm transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 group/btn"
@@ -249,7 +248,6 @@ const RouteCard: React.FC<{ route: Route }> = ({ route }) => {
           transition={{ duration: 0.4 }}
           className="bg-gradient-to-br from-slate-900/90 to-slate-950/95 border border-slate-800/50 rounded-3xl p-8 h-full flex flex-col backdrop-blur-sm hover:border-blue-500/30 transition-all duration-500 group"
         >
-            {/* Header */}
             <div className="mb-6">
               <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent mb-3">
                 {route.title}
@@ -257,7 +255,6 @@ const RouteCard: React.FC<{ route: Route }> = ({ route }) => {
               <p className="text-slate-400 text-sm leading-relaxed">{route.description}</p>
             </div>
 
-            {/* Promesa destacada */}
             <div className="mb-8 p-6 bg-gradient-to-r from-blue-500/10 to-blue-600/5 border border-blue-500/20 rounded-2xl">
               <p className="text-slate-300 font-semibold text-sm">
                 <span className="text-blue-400 text-xs uppercase tracking-wide block mb-2">Tu transformación</span>
@@ -265,7 +262,6 @@ const RouteCard: React.FC<{ route: Route }> = ({ route }) => {
               </p>
             </div>
 
-            {/* Secuencia */}
             <div className="mt-auto">
               <p className="text-xs text-slate-500 uppercase tracking-wide mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 bg-blue-500 rounded-full" />
@@ -292,6 +288,7 @@ const RouteCard: React.FC<{ route: Route }> = ({ route }) => {
 };
 
 const FormativeSection: React.FC = () => {
+    const { openChat } = useChatStore(); // << USO DEL HOOK
     const [activeTab, setActiveTab] = useState<string>('talleres')
     const [showRoutes, setShowRoutes] = useState<boolean>(false)
 
@@ -311,14 +308,12 @@ const FormativeSection: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-black text-slate-300 relative overflow-hidden">
-          {/* Fondo con gradientes */}
           <div className="absolute inset-0 z-0">
             <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-radial from-blue-900/30 via-blue-800/10 to-transparent blur-3xl"></div>
             <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-radial from-slate-900/50 to-transparent blur-3xl"></div>
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-1/2 bg-gradient-radial from-blue-600/10 to-transparent blur-3xl"></div>
           </div>
 
-          {/* Grid pattern sutil */}
           <div className="absolute inset-0 z-0 opacity-[0.02]">
             <div className="absolute inset-0" style={{
               backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
@@ -327,7 +322,6 @@ const FormativeSection: React.FC = () => {
           </div>
 
           <div className="relative z-10 container mx-auto px-6 py-24 sm:py-32">
-            {/* Hero Section */}
             <motion.section 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -335,7 +329,6 @@ const FormativeSection: React.FC = () => {
               className="text-center space-y-8 max-w-5xl mx-auto mb-24"
             >
               <div className="space-y-6">
-                {/* Badge pequeño */}
                 <div className="flex justify-center mb-6">
                   <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 rounded-full">
                     <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
@@ -356,7 +349,6 @@ const FormativeSection: React.FC = () => {
                 </p>
               </div>
               
-              {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
                 <motion.button 
                   onClick={() => setShowRoutes(true)}
@@ -370,7 +362,10 @@ const FormativeSection: React.FC = () => {
                   </span>
                 </motion.button>
                 
+                {/* vvv BOTÓN MODIFICADO vvv */}
                 <motion.button 
+                  onClick={openChat}
+                  type="button"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   className="group text-slate-300 font-semibold px-8 py-4 rounded-2xl transition-all duration-300 border border-slate-700/50 hover:border-blue-500/50 hover:bg-slate-800/30 backdrop-blur-sm"
@@ -383,7 +378,6 @@ const FormativeSection: React.FC = () => {
               </div>
             </motion.section>
 
-            {/* Navigation Tabs */}
             <motion.section 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -428,7 +422,6 @@ const FormativeSection: React.FC = () => {
                     {tabDescriptions[activeTab]}
                   </p>
 
-                  {/* Grid de formaciones */}
                   <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
                     {formationsData[activeTab]?.map((formation, index) => (
                       <motion.div
@@ -449,7 +442,6 @@ const FormativeSection: React.FC = () => {
               </AnimatePresence>
             </motion.section>
 
-            {/* Modal de rutas */}
             <AnimatePresence>
               {showRoutes && (
                 <motion.div 

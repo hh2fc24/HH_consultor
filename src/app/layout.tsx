@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import CanvasSpotlight from "@/components/CanvasSpotlight";
 import FloatingLogo from "@/components/FloatingLogo";
-import FloatingChatWidget from "@/components/FloatingChatWidget"; // <-- NUEVO: Widget de chat
+import FloatingChatWrapper from "@/components/FloatingChatWidget";
+import FaviconInjector from "@/components/FaviconInjector"; // ⚡ inyecta favicon vía JS
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,12 +21,6 @@ const jetBrains_Mono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Hugo Hormazábal | IA Personalizada con Propósito",
-  description:
-    "Consultoría estratégica premium en inteligencia artificial con enfoque humano y resultados reales.",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,16 +28,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Hugo Hormazábal | IA Personalizada con Propósito</title>
+      </head>
       <body
         className={`${inter.variable} ${poppins.variable} ${jetBrains_Mono.variable} antialiased text-white bg-black`}
       >
+        <FaviconInjector /> {/* 💥 Forzamos el favicon sin depender del head */}
         <FloatingLogo />
-        <FloatingChatWidget /> {/* <-- NUEVO: Chat flotante con glassmorphism */}
-        
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          {children}
-        </div>
-        
+        <FloatingChatWrapper />
+
+        <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
+
         <CanvasSpotlight />
       </body>
     </html>

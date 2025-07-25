@@ -1,8 +1,10 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { Workflow, ArrowRight, Play, Pause, RotateCcw } from 'lucide-react';
+import { useChatStore } from '@/store/chatStore'; // << 1. IMPORTACIÓN DEL STORE
 
 // Asegúrate que la ruta a tus iconos es correcta
 import {
@@ -13,6 +15,7 @@ import {
 } from './svg-icons'; 
 
 const AutomationShowcase = () => {
+  const { openChat } = useChatStore(); // << 2. USO DEL HOOK
   const [activeFlow, setActiveFlow] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -103,7 +106,6 @@ const AutomationShowcase = () => {
     }
   };
   
-  // =====> VARIANTS DE ANIMACIÓN MEJORADAS <=====
   const ring1Variants: Variants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: {
@@ -148,7 +150,6 @@ const AutomationShowcase = () => {
 
   return (
     <section className="py-24 bg-black relative overflow-hidden">
-      {/* Fondo animado mejorado */}
       <div className="absolute inset-0 z-0 opacity-20">
         <motion.div 
           animate={{ 
@@ -254,7 +255,6 @@ const AutomationShowcase = () => {
             whileHover={{ scale: 1.01 }}
             className="bg-gray-900/40 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-12 relative overflow-hidden hover:border-cyan-400/30 transition-all duration-500"
           >
-            {/* Efecto de glow en hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 via-indigo-500/5 to-cyan-400/5 opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
             
             <AnimatePresence mode="wait">
@@ -315,7 +315,6 @@ const AutomationShowcase = () => {
                           onMouseMove={(e) => handleStepMouseMove(e, index)}
                           className="group flex flex-col items-center text-center w-28 relative"
                         >
-                          {/* Efecto de glow que sigue el mouse */}
                           <div
                             className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                             style={{
@@ -323,13 +322,11 @@ const AutomationShowcase = () => {
                             }}
                           />
 
-                          {/* =====> COMPONENTE DE ICONO MEJORADO CON EFECTOS AVANZADOS <===== */}
                           <motion.div
                             initial="hidden"
                             whileHover="visible"
                             className="relative w-24 h-24 flex items-center justify-center z-10"
                           >
-                            {/* Anillos animados mejorados */}
                             <motion.div
                               variants={ring1Variants}
                               className="absolute w-[115%] h-[115%] rounded-full border border-dotted border-cyan-400/50 group-hover:border-cyan-400/80 transition-colors duration-300"
@@ -339,7 +336,6 @@ const AutomationShowcase = () => {
                               className="absolute w-[130%] h-[130%] rounded-full border border-dotted border-indigo-400/50 group-hover:border-indigo-400/80 transition-colors duration-300"
                             />
                             
-                            {/* Glow pulsante en hover */}
                             <motion.div
                               variants={glowVariants}
                               className="absolute w-[150%] h-[150%] rounded-full bg-gradient-to-r from-cyan-400/20 to-indigo-500/20 blur-xl opacity-0 group-hover:opacity-100"
@@ -452,7 +448,6 @@ const AutomationShowcase = () => {
                         onMouseMove={(e) => handleMouseMove(e, index)}
                         className="group relative rounded-2xl border border-white/10 bg-gray-900/60 backdrop-blur-sm p-6 text-center transition-all duration-300 hover:border-white/30 hover:bg-gray-800/80 overflow-hidden"
                     >
-                        {/* Borde animado que sigue el mouse */}
                         <div
                             className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                             style={{
@@ -460,7 +455,6 @@ const AutomationShowcase = () => {
                             }}
                         />
 
-                        {/* Borde gradiente animado */}
                         <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                           <div className="absolute inset-[1px] rounded-2xl bg-gray-900/90" />
                           <motion.div
@@ -492,7 +486,6 @@ const AutomationShowcase = () => {
                             </motion.h4>
                         </div>
 
-                        {/* Partículas flotantes en hover */}
                         <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                           {[...Array(3)].map((_, i) => (
                             <motion.div
@@ -531,10 +524,8 @@ const AutomationShowcase = () => {
             whileHover={{ scale: 1.02 }}
             className="relative bg-gray-900/40 rounded-2xl border-t border-cyan-400/30 p-8 md:p-12 backdrop-blur-lg overflow-hidden group"
           >
-            {/* Efecto de glow animado en el fondo */}
             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-400/10 to-transparent -z-10 group-hover:from-cyan-400/20 transition-all duration-500"></div>
             
-            {/* Líneas de energía animadas */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
               {[...Array(5)].map((_, i) => (
                 <motion.div
@@ -571,10 +562,10 @@ const AutomationShowcase = () => {
               >
                 Agenda una consulta estratégica y diseñaremos un plan de automatización a la medida de tus desafíos y oportunidades.
               </motion.p>
-              <motion.a
-                href="https://wa.me/59177028880?text=Hola,%20quisiera%20agendar%20una%20consulta%20estratégica%20sobre%20automatización."
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* vvv 3. BOTÓN MODIFICADO vvv */}
+              <motion.button
+                onClick={openChat}
+                type="button"
                 whileHover={{ 
                   scale: 1.05, 
                   boxShadow: '0 20px 40px rgba(0, 229, 255, 0.3)',
@@ -583,7 +574,6 @@ const AutomationShowcase = () => {
                 whileTap={{ scale: 0.98 }}
                 className={`inline-flex items-center gap-2 ${theme.gradient} text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-cyan-500/30 relative overflow-hidden group`}
               >
-                {/* Efecto de brillo que se mueve */}
                 <motion.div
                   animate={{ x: ['-100%', '100%'] }}
                   transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
@@ -596,7 +586,8 @@ const AutomationShowcase = () => {
                 >
                   <ArrowRight className="w-5 h-5" />
                 </motion.div>
-              </motion.a>
+              </motion.button>
+              {/* ^^^ FIN DE LA MODIFICACIÓN ^^^ */}
             </div>
           </motion.div>
         </motion.div>

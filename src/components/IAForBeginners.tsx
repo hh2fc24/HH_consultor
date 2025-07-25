@@ -1,3 +1,5 @@
+
+
 'use client';
 
 import React, { useState } from 'react';
@@ -14,10 +16,12 @@ import {
   Users,
   Zap
 } from 'lucide-react';
+import { useChatStore } from '@/store/chatStore'; // << 1. IMPORTACIÓN DEL STORE
 
 const IAForBeginners = () => {
   const [activeMyth, setActiveMyth] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
+  const { openChat } = useChatStore(); // << 2. USO DEL HOOK PARA OBTENER LA FUNCIÓN
 
   const myths = [
     {
@@ -266,15 +270,18 @@ const IAForBeginners = () => {
                 Te acompaño paso a paso para que implementes tu primera automatización 
                 sin complicaciones técnicas.
               </p>
-              <motion.a
-                href="https://wa.me/59177028880"
+              {/* vvv 3. BOTÓN MODIFICADO vvv */}
+              <motion.button
+                onClick={openChat}
+                type="button"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-400 to-indigo-500 text-black font-bold px-6 py-3 rounded-lg transition-all text-sm"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Comenzar Mi Primera Automatización
                 <ArrowRight className="w-4 h-4" />
-              </motion.a>
+              </motion.button>
+              {/* ^^^ FIN DE LA MODIFICACIÓN ^^^ */}
             </div>
           </motion.div>
         </motion.div>

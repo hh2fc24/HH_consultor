@@ -9,15 +9,12 @@ const nextConfig = {
     ],
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true, // útil en Vercel si no querés que falle por lint
   },
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: false, // te avisa si hay errores TS, bueno mantenerlo
   },
-  experimental: {
-    // ✅ Necesario para compilar correctamente con la SDK oficial de OpenAI en Next.js 15+
-    serverComponentsExternalPackages: ['openai'],
-  },
+  // 👇 se eliminó 'experimental' porque ya no aplica en Next 15.3.4
 };
 
 module.exports = nextConfig;

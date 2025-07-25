@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { X, Send, Bot, RefreshCw, Sparkles, Calendar, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
+import { useChatStore } from '@/store/chatStore';
 
 // --- TIPOS ---
 type Message = { 
@@ -27,16 +28,6 @@ type CalendarSlot = {
 const CORRECT_CALENDAR_URL = 'https://cal.com/hhormazabal';
 
 // --- HOOKS INTERNOS ---
-const useSound = (src: string) => {
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
-  useEffect(() => { 
-    const newAudio = new Audio(src);
-    newAudio.volume = 0.3;
-    setAudio(newAudio);
-  }, [src]);
-  return () => audio?.play().catch(e => console.error("Error al reproducir sonido:", e));
-};
-
 // Hook personalizado para manejar slots de calendario
 const useCalSlots = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -571,7 +562,7 @@ const LoadingDots = () => {
 
 // --- WIDGET PRINCIPAL ---
 export default function FloatingChatWidget() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, closeChat } = useChatStore();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -580,8 +571,6 @@ export default function FloatingChatWidget() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const playSendSound = useSound('/sounds/send.mp3');
-  const playReceiveSound = useSound('/sounds/receive.mp3');
   const { getAvailableSlots, isLoading: isLoadingSlots } = useCalSlots();
 
   // Cargar slots disponibles al inicializar
@@ -627,7 +616,6 @@ export default function FloatingChatWidget() {
   const handleSendMessage = async (messageContent: string) => {
     if (!messageContent.trim() || isLoading) return;
     
-    playSendSound();
     const newUserMessage: Message = { 
       id: Date.now().toString(), 
       role: 'user', 
@@ -648,7 +636,6 @@ export default function FloatingChatWidget() {
         const freshSlots = await getAvailableSlots();
         
         if (freshSlots.length > 0) {
-          playReceiveSound();
           setMessages(prev => [...prev, {
             id: Date.now().toString(), 
             role: 'assistant', 
@@ -657,7 +644,6 @@ export default function FloatingChatWidget() {
             calendarSlots: freshSlots
           }]);
         } else {
-          playReceiveSound();
           setMessages(prev => [...prev, {
             id: Date.now().toString(), 
             role: 'assistant', 
@@ -692,7 +678,6 @@ export default function FloatingChatWidget() {
         // Detectar si la respuesta contiene enlaces de Calendly o menciones de agendar
         const { hasLink, url, cleanContent } = detectCalendlyLink(assistantResponse);
         
-        playReceiveSound();
         setMessages(prev => [...prev, {
           id: Date.now().toString(), 
           role: 'assistant', 
@@ -763,12 +748,9 @@ export default function FloatingChatWidget() {
           )}
         </AnimatePresence>
         
-        {/* BOTÓN PRINCIPAL MEJORADO - SIN FONDO NEGRO */}
+        {/* BOTÓN PRINCIPAL MEJORADO */}
         <motion.button 
-          onClick={() => {
-            setIsOpen(!isOpen);
-            setShowTooltip(false);
-          }}
+          onClick={isOpen ? closeChat : () => useChatStore.getState().openChat()}
           className="w-20 h-20 rounded-full flex items-center justify-center group relative overflow-hidden"
           style={{ 
             background: 'transparent',
@@ -780,41 +762,9 @@ export default function FloatingChatWidget() {
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
           animate={{
-            filter: isOpen 
-              ? "drop-shadow(0 0 0px rgba(0, 229, 255, 0))" 
-              : [
-                  "drop-shadow(0 0 0px rgba(0, 229, 255, 0))", 
-                  "drop-shadow(0 0 25px rgba(0, 229, 255, 0.8))", 
-                  "drop-shadow(0 0 0px rgba(0, 229, 255, 0))"
-                ],
-          }}
-          transition={{
-            filter: {
-              duration: 3,
-              repeat: Infinity,
-              repeatDelay: 2
-            }
+            filter: "drop-shadow(0 0 0px rgba(0, 229, 255, 0))"
           }}
         >
-          {/* Efecto de fondo sutil solo cuando está cerrado */}
-          {!isOpen && (
-            <motion.div
-              className="absolute inset-2 rounded-full"
-              style={{
-                background: 'radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, rgba(0, 229, 255, 0.05) 50%, transparent 100%)'
-              }}
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                scale: [0.8, 1.1, 0.8]
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          )}
-          
           <AnimatePresence mode="wait">
             {isOpen ? (
               <motion.div 
@@ -849,15 +799,17 @@ export default function FloatingChatWidget() {
             ) : (
               <motion.div 
                 key="open" 
-                className="w-full h-full flex items-center justify-center relative"
-                initial={{ opacity: 0, scale: 0.5 }}
+                className="flex items-center justify-center w-16 h-16 relative"
+                initial={{ opacity: 0, rotate: 90, scale: 0.5 }}
                 animate={{ 
                   opacity: 1, 
+                  rotate: 0, 
                   scale: 1
                 }}
-                exit={{ opacity: 0, scale: 0.5 }}
+                exit={{ opacity: 0, rotate: -90, scale: 0.5 }}
                 transition={{ type: "spring", damping: 15, stiffness: 200 }}
               >
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-900/70 to-blue-900/70 border border-white/20 backdrop-blur-sm" />
                 <AICoreIcon />
               </motion.div>
             )}
@@ -874,179 +826,179 @@ export default function FloatingChatWidget() {
             exit={{ opacity: 0, y: 30, scale: 0.98 }}
             transition={{ type: 'spring', damping: 25, stiffness: 250 }}
           >
-            <div className="relative rounded-2xl border border-white/10 overflow-hidden flex flex-col h-[75vh] max-h-[650px] bg-black/50 backdrop-blur-xl">
-              <div className="absolute inset-0 z-0 overflow-hidden">
-                <motion.div 
-                  className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl"
-                  animate={{ 
-                    x: [-100, 100, -100], 
-                    y: [-50, 50, -50],
-                    opacity: [0.2, 0.5, 0.2]
-                  }} 
-                  transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }} 
+          <div className="relative rounded-2xl border border-white/10 overflow-hidden flex flex-col h-[75vh] max-h-[650px] bg-black/50 backdrop-blur-xl">
+            <div className="absolute inset-0 z-0 overflow-hidden">
+              <motion.div 
+                className="absolute top-0 left-0 w-[400px] h-[400px] bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl"
+                animate={{ 
+                  x: [-100, 100, -100], 
+                  y: [-50, 50, -50],
+                  opacity: [0.2, 0.5, 0.2]
+                }} 
+                transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }} 
+              />
+              
+              <motion.div 
+                className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-gradient-to-tl from-purple-600/30 to-transparent rounded-full blur-3xl"
+                animate={{ 
+                  x: [100, -100, 100], 
+                  y: [50, -50, 50],
+                  opacity: [0.2, 0.5, 0.2]
+                }} 
+                transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
+              />
+              
+              {[...Array(15)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-1.5 h-1.5 rounded-full bg-cyan-400"
+                  style={{
+                    top: `${(i * 7) % 100}%`,
+                    left: `${(i * 13) % 100}%`,
+                  }}
+                  animate={{
+                    y: [0, -25, 0],
+                    x: [0, i % 2 === 0 ? -15 : 15, 0],
+                    opacity: [0.3, 1, 0.3],
+                    scale: [1, 1.8, 1]
+                  }}
+                  transition={{
+                    duration: 3 + (i % 3),
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                  }}
                 />
-                
-                <motion.div 
-                  className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-gradient-to-tl from-purple-600/30 to-transparent rounded-full blur-3xl"
-                  animate={{ 
-                    x: [100, -100, 100], 
-                    y: [50, -50, 50],
-                    opacity: [0.2, 0.5, 0.2]
-                  }} 
-                  transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-                />
-                
-                {[...Array(15)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-cyan-400"
-                    style={{
-                      top: `${(i * 7) % 100}%`,
-                      left: `${(i * 13) % 100}%`,
-                    }}
-                    animate={{
-                      y: [0, -25, 0],
-                      x: [0, i % 2 === 0 ? -15 : 15, 0],
-                      opacity: [0.3, 1, 0.3],
-                      scale: [1, 1.8, 1]
+              ))}
+            </div>
+            
+            <div className="relative z-10 flex flex-col h-full">
+              <motion.div 
+                className="flex items-center justify-between p-4 border-b border-white/10 shrink-0 bg-gradient-to-r from-black/70 to-black/50 backdrop-blur-xl"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
+                <div className="text-left">
+                  <motion.h3 
+                    className="text-lg font-bold text-white flex items-center gap-2"
+                    animate={{ 
+                      textShadow: ["0 0 0px #fff", "0 0 10px #00E5FF", "0 0 0px #fff"]
                     }}
                     transition={{
-                      duration: 3 + (i % 3),
-                      repeat: Infinity,
-                      delay: i * 0.2,
+                      duration: 3,
+                      repeat: Infinity
                     }}
-                  />
-                ))}
-              </div>
-              
-              <div className="relative z-10 flex flex-col h-full">
-                <motion.div 
-                  className="flex items-center justify-between p-4 border-b border-white/10 shrink-0 bg-gradient-to-r from-black/70 to-black/50 backdrop-blur-xl"
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  <div className="text-left">
-                    <motion.h3 
-                      className="text-lg font-bold text-white flex items-center gap-2"
-                      animate={{ 
-                        textShadow: ["0 0 0px #fff", "0 0 10px #00E5FF", "0 0 0px #fff"]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity
-                      }}
-                    >
-                      <span>Atlas Assistant</span>
-                      <Sparkles className="w-4 h-4 text-cyan-300" />
-                    </motion.h3>
-                    <p className="text-cyan-300 text-xs bg-gradient-to-r from-cyan-500/10 to-purple-500/10 px-2 py-1 rounded-full inline-block">
-                      IA con propósito
-                    </p>
-                  </div>
-                  
-                  <motion.button 
-                    whileTap={{scale:0.9}} 
-                    onClick={handleClearChat} 
-                    className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full backdrop-blur-sm border border-white/10"
                   >
-                    <RefreshCw className="w-4 h-4"/>
-                  </motion.button>
-                </motion.div>
-                
-                <div 
-                  ref={chatContainerRef} 
-                  className="flex-grow overflow-y-auto p-4 space-y-5"
-                >
-                  {messages.length === 0 && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="flex flex-col items-center justify-center h-full text-center p-4"
-                    >
-                      <div className="w-24 h-24 mb-6">
-                        <AICoreIcon />
-                      </div>
-                      <h3 className="text-xl font-bold text-white mb-2">Estrategia Inteligente</h3>
-                      <p className="text-cyan-200 mb-4">Dime tu desafío y diseñaremos juntos la solución óptima</p>
-                      <div className="inline-flex gap-2 flex-wrap justify-center">
-                        <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">Automatización</span>
-                        <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">IA</span>
-                        <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">Agenda</span>
-                        <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">Transformación</span>
-                      </div>
-                    </motion.div>
-                  )}
-                  
-                  {messages.map(msg => <ChatMessage key={msg.id} msg={msg} />)}
-                  
-                  {(isLoading || isLoadingSlots) && (
-                    <motion.div 
-                      className="flex items-end gap-2.5 justify-start"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center shrink-0 border border-white/10 backdrop-blur-sm">
-                        {isLoadingSlots ? (
-                          <Calendar className="w-4 h-4 text-cyan-300" />
-                        ) : (
-                          <Bot className="w-4 h-4 text-cyan-300" />
-                        )}
-                      </div>
-                      <div className="relative px-4 py-3 rounded-2xl backdrop-blur-sm bg-gradient-to-br from-gray-800/80 to-gray-900/80 min-w-[80px]">
-                        <LoadingDots />
-                        <div className="absolute inset-0 rounded-2xl pointer-events-none border border-cyan-400/30" />
-                      </div>
-                    </motion.div>
-                  )}
+                    <span>Atlas Assistant</span>
+                    <Sparkles className="w-4 h-4 text-cyan-300" />
+                  </motion.h3>
+                  <p className="text-cyan-300 text-xs bg-gradient-to-r from-cyan-500/10 to-purple-500/10 px-2 py-1 rounded-full inline-block">
+                    IA con propósito
+                  </p>
                 </div>
                 
-                <motion.div 
-                  className="p-3 border-t border-white/10 shrink-0 bg-gradient-to-r from-black/70 to-black/50 backdrop-blur-xl"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
+                <motion.button 
+                  whileTap={{scale:0.9}} 
+                  onClick={handleClearChat} 
+                  className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-full backdrop-blur-sm border border-white/10"
                 >
-                  <form 
-                    onSubmit={(e) => { e.preventDefault(); handleSendMessage(input); }} 
-                    className="flex items-center gap-2"
+                  <RefreshCw className="w-4 h-4"/>
+                </motion.button>
+              </motion.div>
+              
+              <div 
+                ref={chatContainerRef} 
+                className="flex-grow overflow-y-auto p-4 space-y-5"
+              >
+                {messages.length === 0 && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex flex-col items-center justify-center h-full text-center p-4"
                   >
-                    <motion.input 
-                      value={input} 
-                      onChange={(e) => setInput(e.target.value)} 
-                      placeholder={isLoading || isLoadingSlots ? "Procesando..." : "Describe tu objetivo o escribe 'agendar' para ver mi disponibilidad"} 
-                      className="w-full bg-black/40 border border-white/10 focus:border-cyan-500 rounded-xl px-4 py-2.5 text-white placeholder:text-gray-400 focus:outline-none transition-all shadow-lg backdrop-blur-sm"
-                      disabled={isLoading || isLoadingSlots}
-                      whileFocus={{ 
-                        boxShadow: "0 0 0 2px rgba(0, 229, 255, 0.5)",
-                        borderColor: "rgba(0, 229, 255, 0.5)"
-                      }}
-                    />
-                    
-                    <motion.button 
-                      type="submit" 
-                      disabled={!input.trim() || isLoading || isLoadingSlots} 
-                      className="w-11 h-11 flex items-center justify-center bg-gradient-to-br from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:from-gray-700 disabled:to-gray-800 rounded-xl transition-all shrink-0 shadow-lg"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      animate={{
-                        boxShadow: !input.trim() || isLoading || isLoadingSlots
-                          ? "none" 
-                          : ["0 0 0 rgba(0, 229, 255, 0)", "0 0 15px rgba(0, 229, 255, 0.7)", "0 0 0 rgba(0, 229, 255, 0)"]
-                      }}
-                      transition={{
-                        boxShadow: {
-                          duration: 2,
-                          repeat: Infinity
-                        }
-                      }}
-                    >
-                      <Send className="w-5 h-5 text-white" />
-                    </motion.button>
-                  </form>
-                </motion.div>
+                    <div className="w-24 h-24 mb-6">
+                      <AICoreIcon />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">Estrategia Inteligente</h3>
+                    <p className="text-cyan-200 mb-4">Dime tu desafío y diseñaremos juntos la solución óptima</p>
+                    <div className="inline-flex gap-2 flex-wrap justify-center">
+                      <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">Automatización</span>
+                      <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">IA</span>
+                      <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">Agenda</span>
+                      <span className="text-xs bg-gray-800/50 px-2 py-1 rounded">Transformación</span>
+                    </div>
+                  </motion.div>
+                )}
+                
+                {messages.map(msg => <ChatMessage key={msg.id} msg={msg} />)}
+                
+                {(isLoading || isLoadingSlots) && (
+                  <motion.div 
+                    className="flex items-end gap-2.5 justify-start"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center shrink-0 border border-white/10 backdrop-blur-sm">
+                      {isLoadingSlots ? (
+                        <Calendar className="w-4 h-4 text-cyan-300" />
+                      ) : (
+                        <Bot className="w-4 h-4 text-cyan-300" />
+                      )}
+                    </div>
+                    <div className="relative px-4 py-3 rounded-2xl backdrop-blur-sm bg-gradient-to-br from-gray-800/80 to-gray-900/80 min-w-[80px]">
+                      <LoadingDots />
+                      <div className="absolute inset-0 rounded-2xl pointer-events-none border border-cyan-400/30" />
+                    </div>
+                  </motion.div>
+                )}
               </div>
+              
+              <motion.div 
+                className="p-3 border-t border-white/10 shrink-0 bg-gradient-to-r from-black/70 to-black/50 backdrop-blur-xl"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <form 
+                  onSubmit={(e) => { e.preventDefault(); handleSendMessage(input); }} 
+                  className="flex items-center gap-2"
+                >
+                  <motion.input 
+                    value={input} 
+                    onChange={(e) => setInput(e.target.value)} 
+                    placeholder={isLoading || isLoadingSlots ? "Procesando..." : "Describe tu objetivo o escribe 'agendar' para ver mi disponibilidad"} 
+                    className="w-full bg-black/40 border border-white/10 focus:border-cyan-500 rounded-xl px-4 py-2.5 text-white placeholder:text-gray-400 focus:outline-none transition-all shadow-lg backdrop-blur-sm"
+                    disabled={isLoading || isLoadingSlots}
+                    whileFocus={{ 
+                      boxShadow: "0 0 0 2px rgba(0, 229, 255, 0.5)",
+                      borderColor: "rgba(0, 229, 255, 0.5)"
+                    }}
+                  />
+                  
+                  <motion.button 
+                    type="submit" 
+                    disabled={!input.trim() || isLoading || isLoadingSlots} 
+                    className="w-11 h-11 flex items-center justify-center bg-gradient-to-br from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:from-gray-700 disabled:to-gray-800 rounded-xl transition-all shrink-0 shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    animate={{
+                      boxShadow: !input.trim() || isLoading || isLoadingSlots
+                        ? "none" 
+                        : ["0 0 0 rgba(0, 229, 255, 0)", "0 0 15px rgba(0, 229, 255, 0.7)", "0 0 0 rgba(0, 229, 255, 0)"]
+                    }}
+                    transition={{
+                      boxShadow: {
+                        duration: 2,
+                        repeat: Infinity
+                      }
+                    }}
+                  >
+                    <Send className="w-5 h-5 text-white" />
+                  </motion.button>
+                </form>
+              </motion.div>
             </div>
+          </div>
           </motion.div>
         )}
       </AnimatePresence>

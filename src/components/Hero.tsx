@@ -1,8 +1,10 @@
+
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, Variants } from 'framer-motion';
 import Image from 'next/image';
+import { useChatStore } from "@/store/chatStore"; // << 1. IMPORTACIÓN DEL STORE
 
 // Hook de Typewriter CORREGIDO y MÁS ROBUSTO
 const useTypewriter = (text: string, speed: number = 50) => {
@@ -31,6 +33,7 @@ const useTypewriter = (text: string, speed: number = 50) => {
 };
 
 export default function HeroSectionNeuro() {
+  const { openChat } = useChatStore(); // << 2. USO DEL HOOK PARA OBTENER LA FUNCIÓN
   const heroRef = useRef<HTMLElement>(null);
   const [currentCount, setCurrentCount] = useState(1247);
   const [currentNotification, setCurrentNotification] = useState(0);
@@ -230,8 +233,10 @@ export default function HeroSectionNeuro() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
             >
-              <motion.a
-                href="https://wa.me/59177028880"
+              {/* vvv 3. BOTÓN MODIFICADO vvv */}
+              <motion.button
+                onClick={openChat}
+                type="button"
                 className="group relative bg-gradient-to-r from-[#00E5FF] to-[#0099CC] text-black font-bold px-6 py-3 rounded-lg shadow-lg transition-all text-sm overflow-hidden"
                 whileHover={{ scale: 1.02, y: -2, boxShadow: '0 8px 25px rgba(0, 229, 255, 0.4)' }}
                 whileTap={{ scale: 0.98 }}
@@ -240,7 +245,8 @@ export default function HeroSectionNeuro() {
                   Quiero Recuperar Mi Tiempo
                   <span className="block text-xs opacity-80 font-normal">Conversación sin compromiso</span>
                 </span>
-              </motion.a>
+              </motion.button>
+              {/* ^^^ FIN DE LA MODIFICACIÓN ^^^ */}
               <motion.a
                 href="#casos-de-exito"
                 className="group text-white/90 hover:text-white text-sm transition-all duration-300 relative"

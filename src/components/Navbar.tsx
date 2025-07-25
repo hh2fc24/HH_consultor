@@ -263,7 +263,7 @@ export default function Navbar() {
                 <Link
                   href="#contacto"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block w-full px-4 py-2 text-white text-center cta-button flex items-center justify-center gap-2"
+                 className="w-full px-4 py-2 text-white text-center cta-button flex items-center justify-center gap-2"
                 >
                   <Zap className="w-4 h-4" />
                   <span>Empieza Ahora</span>
