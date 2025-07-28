@@ -26,6 +26,7 @@
     "react-markdown": "^10.1.0",
     "react-tsparticles": "^2.12.2",
     "recharts": "^3.1.0",
+    "resend": "^4.7.0",
     "three": "^0.178.0",
     "tsparticles": "^3.8.1",
     "tsparticles-slim": "^2.12.0"

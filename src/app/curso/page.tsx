@@ -168,15 +168,15 @@ export default function CursoPage() {
             {/* Main Title */}
             <div className="space-y-3">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight">
-                <span className="text-white">Domina la</span>
+                <span className="text-white">IA: </span>
                   
 
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                  IA Práctica
+                  Más allá 
                 </span>
                   
 
-                <span className="text-white">en 90 min</span>
+                <span className="text-white"> de ChatGPT</span>
               </h1>
               
               <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
