@@ -5,7 +5,7 @@ import { Resend } from 'resend';
 
 // Inicializamos el cliente de Supabase para el servidor
 const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
@@ -28,43 +28,89 @@ export async function POST(request: Request) {
     }
 
     // 2. Enviar el correo de confirmación
-    const calendarLink = "https://calndr.link/d/event?start=2025-08-01T20:00&end=2025-08-01T20:45&title=Taller%20IA%20Pr%C3%A1ctica&description=Taller%20en%20vivo%20para%20aprender%20a%20automatizar%20tu%20trabajo%20con%20IA.&location=Zoom";
+    const calendarLink = "https://xlwvzzwgtexpnosmqpjy.supabase.co/storage/v1/object/public/imagenes-curso//taller-ia.ics";
 
     const { error: emailError } = await resend.emails.send({
       from: 'Curso IA de Altius Ignite <hola@altiusignite.com>',
       to: [email],
-      subject: '🚀 ¡Cupo pre-reservado! Estás a un paso de unirte al curso de IA',
+      subject: '🚀 ¡Cupo confirmado! Tu viaje a la IA Práctica comienza ahora.',
       html: `<!DOCTYPE html>
-<html>
-<head><title>Confirmación</title></head>
-<body style="font-family: sans-serif; margin: 0; padding: 40px; background-color: #f4f4f4; color: #333;">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr><td align="center">
-      <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden;">
-        <tr><td><img src="https://xlwvzzwgtexpnosmqpjy.supabase.co/storage/v1/object/public/imagenes-curso//HH_mail.png" alt="Banner" style="width: 100%; display: block;"></td></tr>
-        <tr><td style="padding: 40px;">
-          <h1 style="font-size: 24px; margin-top: 0;">¡Tu cupo está pre-reservado!</h1>
-          <p style="font-size: 16px; line-height: 1.5;">Hola ${nombre}, ¡qué emoción tenerte a bordo!</p>
-          <p style="font-size: 16px; line-height: 1.5;">Has dado el paso más importante. Revisa los detalles de tu pre-reserva.</p>
-          <h2 style="font-size: 20px; border-top: 1px solid #eeeeee; padding-top: 20px; margin-top: 30px;">Detalles del Taller</h2>
-          <p><strong>📅 Fecha:</strong> Viernes 01 Agosto</p>
-          <p><strong>⏰ Horario:</strong> 20:00 - 20:45 (Hora Bolivia )</p>
-          <p><strong>💻 Modalidad:</strong> Zoom en Vivo</p>
-          <h2 style="font-size: 20px; border-top: 1px solid #eeeeee; padding-top: 20px; margin-top: 30px;">Siguiente Paso: Pago</h2>
-          <p>Nuestro equipo comercial se contactará contigo para coordinar el pago de los 79 BOB.</p>
-          <p>Mientras tanto, ¡añade la fecha a tu calendario!</p>
-          <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 20px; margin-bottom: 20px;">
-            <tr><td align="center"><a href="${calendarLink}" style="background-color: #007bff; color: #ffffff; padding: 15px 25px; text-decoration: none; border-radius: 5px; display: inline-block;" target="_blank">🗓️ Añadir a Calendario</a></td></tr>
-          </table>
-          <p style="font-size: 14px; color: #555;">💡 <strong>Diagnóstico IA:</strong> Te enviaremos el acceso en un correo separado.</p>
-        </td></tr>
-        <tr><td style="background-color: #f4f4f4; padding: 20px; text-align: center; font-size: 12px; color: #888;">
-          <p>¿Preguntas? <a href="mailto:ayuda@altiusignite.com" style="color: #007bff;">ayuda@altiusignite.com</a></p>
-        </td></tr>
-      </table>
-    </td></tr>
-  </table>
-</body></html>`,
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>¡Cupo Confirmado!</title>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; margin: 0; padding: 0; background-color: #0a0a0a; }
+          table { border-collapse: collapse; }
+          a { color: #3b82f6; text-decoration: none; }
+          p { line-height: 1.6; }
+          .container { width: 100%; max-width: 600px; margin: 0 auto; }
+          .content { padding: 32px; }
+          .button { background-color: #3b82f6; color: #ffffff; padding: 14px 28px; border-radius: 8px; display: inline-block; font-weight: bold; text-align: center; }
+          .footer { padding: 24px; text-align: center; font-size: 12px; color: #9ca3af; }
+        </style>
+      </head>
+      <body>
+        <table class="container" border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td align="center" style="padding: 24px 0;">
+              <!-- Logo opcional -->
+            </td>
+          </tr>
+          <tr>
+            <td style="background-image: url('https://xlwvzzwgtexpnosmqpjy.supabase.co/storage/v1/object/public/imagenes-curso/HH_mail.png' ); background-size: cover; background-position: center; border-radius: 16px 16px 0 0;">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding: 120px 32px 32px 32px;">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color: rgba(10, 10, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+                      <tr>
+                        <td style="padding: 24px; color: #ffffff;">
+                          <h1 style="margin: 0; font-size: 28px; font-weight: 800;">¡Tu cupo está confirmado!</h1>
+                          <p style="margin: 8px 0 0; font-size: 16px; color: #d1d5db;">Hola ${nombre}, ¡qué emoción tenerte a bordo!</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td class="content" style="background-color: #111827; border-radius: 0 0 16px 16px; color: #d1d5db;">
+              <p style="font-size: 16px;">Has dado el paso más importante para transformar tu forma de trabajar. Revisa los detalles de tu reserva y el siguiente paso para asegurar tu asistencia.</p>
+
+              <h2 style="font-size: 20px; font-weight: 700; color: #ffffff; border-top: 1px solid #374151; padding-top: 24px; margin-top: 32px;">Detalles del Taller</h2>
+              <p><strong>📅 Fecha:</strong> Viernes 01 Agosto</p>
+              <p><strong>⏰ Horario:</strong> 20:00 - 20:45 (Hora Bolivia)</p>
+              <p><strong>💻 Modalidad:</strong> Zoom en Vivo</p>
+
+              <h2 style="font-size: 20px; font-weight: 700; color: #ffffff; border-top: 1px solid #374151; padding-top: 24px; margin-top: 32px;">Siguiente Paso: Pago</h2>
+              <p style="font-size: 16px;">Nuestro equipo comercial se contactará contigo para coordinar el pago de los 79 BOB.</p>
+              <p style="font-size: 16px;">Mientras tanto, ¡añade la fecha a tu calendario para que no se te pase!</p>
+
+              <table width="100%" style="margin: 24px 0;">
+                <tr>
+                  <td align="center">
+                    <a href="${calendarLink}" class="button" target="_blank" download>🗓️ Añadir a mi Calendario</a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="font-size: 14px; color: #9ca3af; background-color: #1f2937; padding: 12px; border-radius: 8px;">
+                💡 <strong>Diagnóstico IA Personalizado:</strong> Como siguiente paso, te enviaremos en un correo separado el acceso a tu diagnóstico. ¡No te lo pierdas!
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="footer">
+              <p>¿Preguntas? <a href="mailto:ayuda@altiusignite.com">ayuda@altiusignite.com</a></p>
+              <p>Recibiste este correo porque reservaste tu cupo en nuestro curso.</p>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>`,
     });
 
     if (emailError) {
@@ -72,7 +118,6 @@ export async function POST(request: Request) {
       throw new Error('Error al enviar el correo de confirmación.');
     }
 
-    // 3. Si todo va bien, devolvemos una respuesta de éxito
     return NextResponse.json({ message: 'Registro y correo enviados con éxito' });
 
   } catch (error: any) {
