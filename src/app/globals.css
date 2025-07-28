@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* 🎯 Variables de marca */
 :root {
   --background: #171c39; /* color de fondo exacto */
   --foreground: #ffffff;
@@ -7,6 +8,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* 💎 Tema inline */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -14,6 +16,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* ☀️ Modo claro opcional */
 @media (prefers-color-scheme: light) {
   :root {
     --background: #ffffff;
@@ -21,6 +24,7 @@
   }
 }
 
+/* 🧠 Base estética */
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -30,4 +34,49 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ✨ Animación premium para formularios flotantes */
+@keyframes floatGlow {
+  0% {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.06);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 0 24px rgba(0, 255, 255, 0.15);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.06);
+  }
+}
+
+.animate-float-glow {
+  animation: floatGlow 5s ease-in-out infinite;
+}
+
+/* 🌀 Borde animado elegante */
+@keyframes borderFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.glow-border {
+  border: 1.5px solid transparent;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(135deg, #00e5ff, #00b8e6, #0099cc);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 200% 200%;
+  animation: borderFlow 6s ease infinite;
+  border-radius: 1rem;
 }

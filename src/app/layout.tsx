@@ -1,9 +1,15 @@
 import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+
 import CanvasSpotlight from "@/components/CanvasSpotlight";
 import FloatingLogo from "@/components/FloatingLogo";
 import FloatingChatWrapper from "@/components/FloatingChatWidget";
-import FaviconInjector from "@/components/FaviconInjector"; // ⚡ inyecta favicon vía JS
+import FaviconInjector from "@/components/FaviconInjector";
+import CoursePopupWrapper from "@/components/CoursePopupWrapper"; // ✅ Nuevo wrapper
+
+// ✅ IMPORTAR COMPONENTES QUE FALTAN
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,14 +39,26 @@ export default function RootLayout({
         <title>Hugo Hormazábal | IA Personalizada con Propósito</title>
       </head>
       <body
-        className={`${inter.variable} ${poppins.variable} ${jetBrains_Mono.variable} antialiased text-white bg-black`}
+        className={`${inter.variable} ${poppins.variable} ${jetBrains_Mono.variable} antialiased text-white bg-[#171c39]`}
       >
-        <FaviconInjector /> {/* 💥 Forzamos el favicon sin depender del head */}
+        {/* 🔥 ELEMENTOS GLOBALES */}
+        <FaviconInjector />
+        <CoursePopupWrapper /> {/* ✅ Controlado por ruta */}
         <FloatingLogo />
         <FloatingChatWrapper />
 
-        <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
+        {/* ✅ NAVBAR */}
+        <Navbar />
 
+        {/* ✅ CONTENIDO */}
+        <main style={{ position: "relative", zIndex: 1 }}>
+          {children}
+        </main>
+
+        {/* ✅ FOOTER */}
+        <Footer />
+
+        {/* ✅ FONDO INTERACTIVO */}
         <CanvasSpotlight />
       </body>
     </html>

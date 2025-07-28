@@ -7,7 +7,6 @@ import ResultsShowcase from '@/components/ResultsShowcase';
 import IARoutes from '@/components/IARoutes';
 import FAQ from '@/components/FAQ';
 import ConsultationCTA from '@/components/ConsultationCTA';
-import Footer from '@/components/Footer';
 import FormativeSection from '@/components/FormativeSection'; // <- NUEVO
 
 export default function HomePage() {
@@ -57,8 +56,7 @@ export default function HomePage() {
       <section id="contacto">
         <ConsultationCTA />
       </section>
-
-      <Footer />
+      
     </main>
   );
 }

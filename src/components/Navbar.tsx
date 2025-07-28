@@ -22,7 +22,7 @@ export default function Navbar() {
   const navigationItems = [
     {
       label: 'Inicio',
-      href: '#inicio',
+      href: '/#inicio',
       description: 'Conecta con la IA',
       color: 'cyan'
     },
